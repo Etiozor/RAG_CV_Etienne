@@ -1,3 +1,18 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: "**Definition of Done:**"
+current_phase: 1 — Project Setup & Indexing
+status: Not Started
+last_updated: "2026-06-10T17:59:03.725Z"
+progress:
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
+---
+
 # Project State: CV Chatbot
 
 **Current Phase:** 1 — Project Setup & Indexing
@@ -23,6 +38,7 @@ See: .planning/PROJECT.md (updated 2026-06-10)
 ## Current Phase Details
 
 **Phase 1: Project Setup & Indexing**
+
 - Goal: Create the document indexing pipeline
 - Requirements: SETUP-01,02,03, IDX-01,02,03,04,05,06
 - Plans: Not yet created
