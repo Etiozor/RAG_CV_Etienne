@@ -21,6 +21,11 @@
 **Goal:** Create the document indexing pipeline that processes CV documents into a searchable vector store
 **Mode:** mvp
 **Requirements:** SETUP-01, SETUP-02, SETUP-03, IDX-01, IDX-02, IDX-03, IDX-04, IDX-05, IDX-06
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Project foundation: requirements.txt, .env.example, .gitignore, test infrastructure
+- [ ] 01-02-PLAN.md — Indexing pipeline: indexer.py with load, chunk, embed, persist
 
 **Success Criteria:**
 1. Running `python indexer.py` successfully indexes all documents from /docs
