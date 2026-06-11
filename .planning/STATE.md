@@ -2,20 +2,20 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: "**Definition of Done:**"
-current_phase: 2 — RAG Pipeline
+current_phase: 3 — Chainlit Application
 status: Ready
 last_updated: "2026-06-10"
 progress:
   total_phases: 4
-  completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
-  percent: 25
+  completed_phases: 2
+  total_plans: 3
+  completed_plans: 3
+  percent: 50
 ---
 
 # Project State: CV Chatbot
 
-**Current Phase:** 2 — RAG Pipeline
+**Current Phase:** 3 — Chainlit Application
 **Status:** Ready
 **Last Updated:** 2026-06-10
 
@@ -24,15 +24,15 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-10)
 
 **Core value:** Recruiters can instantly get accurate, contextual answers about the candidate's experience and skills
-**Current focus:** Phase 2 — RAG Pipeline
+**Current focus:** Phase 3 — Chainlit Application
 
 ## Phase Progress
 
 | Phase | Name | Status | Progress |
 |-------|------|--------|----------|
 | 1 | Project Setup & Indexing | ✓ Complete | 100% |
-| 2 | RAG Pipeline | ○ Ready | 0% |
-| 3 | Chainlit Application | ○ Pending | 0% |
+| 2 | RAG Pipeline | ✓ Complete | 100% |
+| 3 | Chainlit Application | ○ Ready | 0% |
 | 4 | Deployment | ○ Pending | 0% |
 
 ## Completed Phase Details
@@ -44,6 +44,14 @@ See: .planning/PROJECT.md (updated 2026-06-10)
 - Output: indexer.py, chroma_db/ with 19 indexed chunks
 - Documents indexed: CV (PDF), Mandats (Excel), Profil (Word)
 
+**Phase 2: RAG Pipeline** ✓
+
+- Plans: 02-01 (RAG module)
+- Commit: 81ed199
+- Output: rag.py with retrieve(), build_prompt(), SYSTEM_PROMPT
+- Tests: 9 passed, 2 skipped (require API key)
+- CLI verified with French and English queries
+
 ## Blockers
 
 None
@@ -52,15 +60,15 @@ None
 
 | Date | Action |
 |------|--------|
+| 2026-06-10 | Phase 2 complete: rag.py with RAG-01 through RAG-04 |
+| 2026-06-10 | Plan 02-01 executed: RAG pipeline verified via CLI |
 | 2026-06-10 | Phase 1 complete: 19 chunks indexed to ChromaDB |
-| 2026-06-10 | Plan 01-02 executed: indexer.py created |
-| 2026-06-10 | Plan 01-01 executed: project foundation |
 | 2026-06-10 | Roadmap created (4 phases) |
 
 ## Next Actions
 
-1. Run `/gsd-discuss-phase 2` to gather context for RAG Pipeline
-2. Or run `/gsd-plan-phase 2` to create execution plan
+1. Run `/gsd-discuss-phase 3` to gather context for Chainlit Application
+2. Or run `/gsd-plan-phase 3` to create execution plan
 
 ---
 *State tracking for: CV Chatbot*

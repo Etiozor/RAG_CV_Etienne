@@ -55,7 +55,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 02-01-PLAN.md — RAG module: retrieve(), build_prompt(), system prompt, tests, CLI verification
+- [x] 02-01-PLAN.md — RAG module: retrieve(), build_prompt(), system prompt, tests, CLI verification
 
 **Success Criteria:**
 1. `retrieve("What are Etienne's skills?", k=5)` returns relevant chunks
