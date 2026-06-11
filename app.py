@@ -22,8 +22,9 @@ if not os.getenv("ANTHROPIC_API_KEY"):
         "Copy .env.example to .env and add your key."
     )
 
-# Claude 3.5 Haiku - economic, excellent French support
-MODEL = "claude-3-5-haiku-20241022"
+# Claude Sonnet 4 - excellent French support
+# Note: Switch to claude-haiku when available for cost optimization
+MODEL = "claude-sonnet-4-20250514"
 
 
 @cl.set_starters
