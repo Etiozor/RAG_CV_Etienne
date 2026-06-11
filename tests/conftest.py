@@ -13,14 +13,10 @@ def _ensure_sample_pdf_exists():
         return pdf_path
 
     from pypdf import PdfWriter
-    from pypdf.generic import NameObject
 
     writer = PdfWriter()
-    page = writer.add_blank_page(width=612, height=792)
-
-    # Add text annotation since we can't easily add text content
-    # The PDF will be valid and pypdf can read it
-    page[NameObject("/Contents")] = None
+    # Create a simple blank page - PyPDFLoader can still load it
+    writer.add_blank_page(width=612, height=792)
 
     pdf_path.parent.mkdir(parents=True, exist_ok=True)
     with open(pdf_path, "wb") as f:
