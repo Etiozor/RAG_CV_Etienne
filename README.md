@@ -1,0 +1,127 @@
+---
+title: CV Chatbot Etienne
+emoji: 💼
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_port: 7860
+pinned: false
+short_description: RAG chatbot for recruiter questions about Etienne's profile
+---
+
+# CV Chatbot - Etienne Lepironnec
+
+An AI assistant that answers recruiter questions about Etienne's professional profile using RAG (Retrieval-Augmented Generation).
+
+## Features
+
+- Natural language Q&A about experience, skills, and projects
+- French and English support (auto-detects language)
+- Source-grounded responses (no hallucination)
+- Streaming responses for real-time feedback
+
+## Usage
+
+Simply ask questions like:
+- "Quelle est l'experience d'Etienne en data engineering?"
+- "What are Etienne's technical skills?"
+- "Quelles sont ses missions recentes?"
+
+## Technology Stack
+
+- **LLM:** Claude Sonnet (Anthropic API)
+- **Embeddings:** OpenAI text-embedding-3-small
+- **Vector Store:** ChromaDB
+- **UI:** Chainlit
+- **Deployment:** HuggingFace Spaces (Docker)
+
+## Local Development
+
+### Prerequisites
+- Python 3.11+
+- OpenAI API key
+- Anthropic API key
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/<username>/cv-chatbot.git
+cd cv-chatbot
+```
+
+2. Create virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Configure environment:
+```bash
+cp .env.example .env
+# Edit .env with your API keys
+```
+
+5. Index documents (if needed):
+```bash
+python indexer.py
+```
+
+6. Run the application:
+```bash
+chainlit run app.py
+```
+
+## Deployment
+
+### HuggingFace Spaces
+
+1. Create a new Space at huggingface.co/new-space
+2. Select "Docker" as the SDK
+3. Clone the Space and copy project files
+4. Configure secrets in Space Settings:
+   - `ANTHROPIC_API_KEY`
+   - `OPENAI_API_KEY`
+5. Push to deploy
+
+### Local Docker
+
+```bash
+# Build
+docker build -t cv-chatbot .
+
+# Run (with API keys)
+docker run -p 7860:7860 \
+  -e ANTHROPIC_API_KEY="your-key" \
+  -e OPENAI_API_KEY="your-key" \
+  cv-chatbot
+```
+
+## Project Structure
+
+```
+cv-chatbot/
+├── app.py           # Chainlit application
+├── rag.py           # RAG retrieval module
+├── indexer.py       # Document indexer
+├── chainlit.md      # Welcome screen
+├── Dockerfile       # Container configuration
+├── requirements.txt # Python dependencies
+├── chroma_db/       # Pre-indexed vectors
+├── docs/            # Source documents
+└── tests/           # Unit tests
+```
+
+## License
+
+Private project - All rights reserved.
+
+---
+
+*Built with Chainlit and Claude*
