@@ -2,21 +2,21 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: "**Definition of Done:**"
-current_phase: 4 — Deployment
-status: Ready
+current_phase: Complete
+status: Deployed
 last_updated: "2026-06-11"
 progress:
   total_phases: 4
-  completed_phases: 3
-  total_plans: 4
-  completed_plans: 4
-  percent: 75
+  completed_phases: 4
+  total_plans: 5
+  completed_plans: 5
+  percent: 100
 ---
 
 # Project State: CV Chatbot
 
-**Current Phase:** 4 — Deployment
-**Status:** Ready
+**Current Phase:** Complete
+**Status:** Deployed
 **Last Updated:** 2026-06-11
 
 ## Project Reference
@@ -24,7 +24,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-10)
 
 **Core value:** Recruiters can instantly get accurate, contextual answers about the candidate's experience and skills
-**Current focus:** Phase 4 — Deployment
+**Deployment URL:** https://etiozor-rag-cv.hf.space
 
 ## Phase Progress
 
@@ -33,7 +33,7 @@ See: .planning/PROJECT.md (updated 2026-06-10)
 | 1 | Project Setup & Indexing | ✓ Complete | 100% |
 | 2 | RAG Pipeline | ✓ Complete | 100% |
 | 3 | Chainlit Application | ✓ Complete | 100% |
-| 4 | Deployment | ○ Ready | 0% |
+| 4 | Deployment | ✓ Complete | 100% |
 
 ## Completed Phase Details
 
@@ -59,7 +59,15 @@ See: .planning/PROJECT.md (updated 2026-06-10)
 - Output: app.py with streaming RAG, chainlit.md welcome screen
 - Tests: 5 passed (test_app.py)
 - Features: Welcome message, 5 starter questions, streaming responses
-- Model: Claude 3.5 Haiku (claude-3-5-haiku-20241022)
+- Model: Claude Sonnet 4
+
+**Phase 4: Deployment** ✓
+
+- Plans: 04-01 (HuggingFace Spaces)
+- Commits: 4448b62, a9eefd7, 74256d5
+- Output: Dockerfile, README.md, .dockerignore
+- Deployed to: https://etiozor-rag-cv.hf.space
+- Secrets configured: ANTHROPIC_API_KEY, OPENAI_API_KEY
 
 ## Blockers
 
@@ -69,15 +77,18 @@ None
 
 | Date | Action |
 |------|--------|
+| 2026-06-11 | Phase 4 complete: Deployed to HuggingFace Spaces |
 | 2026-06-11 | Phase 3 complete: Chainlit app with streaming RAG |
-| 2026-06-11 | Plan 03-01 executed: app.py, tests, configuration |
 | 2026-06-10 | Phase 2 complete: rag.py with RAG-01 through RAG-04 |
 | 2026-06-10 | Phase 1 complete: 19 chunks indexed to ChromaDB |
 
-## Next Actions
+## Milestone v1.0 Complete
 
-1. Run `/gsd-discuss-phase 4` to gather context for Deployment
-2. Or run `/gsd-plan-phase 4` to create execution plan
+- [x] All 22 v1 requirements complete
+- [x] Deployed to HuggingFace Spaces
+- [ ] QR code generated and tested
+- [x] README.md complete
+- [ ] Tested with 10+ sample recruiter questions
 
 ---
 *State tracking for: CV Chatbot*
