@@ -417,22 +417,22 @@ CMD ["chainlit", "run", "app.py", "--port", "7860", "--host", "0.0.0.0", "-h"]
 | A2 | Default starters in French are appropriate | Code Examples | Recruiters might expect English UI |
 | A3 | Welcome message tone is professional enough | Code Examples | May need adjustment after user testing |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Starter question icons**
+1. **Starter question icons** (RESOLVED)
    - What we know: `cl.Starter` supports `icon` parameter for SVG icons
    - What's unclear: Whether to include icons or use text-only starters
-   - Recommendation: Start without icons, add later if needed (simpler deployment)
+   - Resolution: Deferred — start text-only for simpler deployment
 
-2. **Message history / conversation memory**
+2. **Message history / conversation memory** (RESOLVED)
    - What we know: Current SYSTEM_PROMPT doesn't include chat history
    - What's unclear: Whether recruiters need multi-turn conversations
-   - Recommendation: Single-turn is sufficient for CV questions, can add memory later
+   - Resolution: Single-turn is sufficient for CV questions
 
-3. **Error handling UI**
+3. **Error handling UI** (RESOLVED)
    - What we know: Chainlit displays errors but may not be user-friendly
    - What's unclear: How to gracefully handle API failures
-   - Recommendation: Wrap LLM calls in try/except, show French error message
+   - Resolution: Wrap LLM calls in try/except, show French error message (implemented in app.py)
 
 ## Environment Availability
 

@@ -79,6 +79,10 @@ Plans:
 **Goal:** Complete chat interface with streaming responses and starter questions
 **Mode:** mvp
 **Requirements:** UI-01, UI-02, UI-03, UI-04, UI-05, LANG-01, LANG-02, LANG-03
+**Plans:** 1 plan
+
+Plans:
+- [ ] 03-01-PLAN.md — Chainlit app: dependencies, app.py with starters/streaming, tests
 
 **Success Criteria:**
 1. `chainlit run app.py` launches the chat interface
