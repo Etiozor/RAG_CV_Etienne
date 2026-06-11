@@ -24,8 +24,8 @@
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Project foundation: requirements.txt, .env.example, .gitignore, test infrastructure
-- [ ] 01-02-PLAN.md — Indexing pipeline: indexer.py with load, chunk, embed, persist
+- [x] 01-01-PLAN.md — Project foundation: requirements.txt, .env.example, .gitignore, test infrastructure
+- [x] 01-02-PLAN.md — Indexing pipeline: indexer.py with load, chunk, embed, persist
 
 **Success Criteria:**
 1. Running `python indexer.py` successfully indexes all documents from /docs
@@ -52,9 +52,13 @@ Plans:
 **Goal:** Build the retrieval and prompt construction module that can be tested independently
 **Mode:** mvp
 **Requirements:** RAG-01, RAG-02, RAG-03, RAG-04
+**Plans:** 1 plan
+
+Plans:
+- [ ] 02-01-PLAN.md — RAG module: retrieve(), build_prompt(), system prompt, tests, CLI verification
 
 **Success Criteria:**
-1. `retrieve("What are Étienne's skills?", k=5)` returns relevant chunks
+1. `retrieve("What are Etienne's skills?", k=5)` returns relevant chunks
 2. `build_prompt(question, chunks)` constructs a well-formatted prompt with system instructions
 3. System prompt enforces "I don't know" behavior for missing information
 4. Can test RAG quality via CLI before UI integration
