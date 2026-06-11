@@ -2,7 +2,11 @@
 langchain==0.2.16
 langchain-community==0.2.16
 langchain-openai==0.1.25
+langchain-anthropic>=0.1.23,<0.2.0
 langchain-text-splitters==0.2.4
+
+# Anthropic API (Claude Haiku)
+anthropic>=0.25.0
 
 # Vector store (using 1.x for Python 3.12 Windows compatibility)
 chromadb>=1.0.0
