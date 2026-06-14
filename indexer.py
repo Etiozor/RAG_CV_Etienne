@@ -3,7 +3,7 @@
 Loads documents from docs/, chunks them, generates embeddings,
 and persists to ChromaDB for RAG retrieval.
 
-Supported formats: PDF, Word (.docx), Excel (.xlsx)
+Supported formats: PDF, Word (.docx), Excel (.xlsx), Markdown (.md)
 """
 
 import os
@@ -75,10 +75,20 @@ def load_xlsx(file_path: Path) -> list[Document]:
     return documents
 
 
+def load_md(file_path: Path) -> list[Document]:
+    """Load a Markdown file."""
+    content = file_path.read_text(encoding="utf-8")
+
+    return [Document(
+        page_content=content,
+        metadata={"source": str(file_path), "type": "markdown"}
+    )]
+
+
 def load_documents(docs_dir: Path) -> list[Document]:
     """Load all documents from the specified directory.
 
-    Supports: PDF, Word (.docx), Excel (.xlsx)
+    Supports: PDF, Word (.docx), Excel (.xlsx), Markdown (.md)
 
     Args:
         docs_dir: Path to the documents directory
@@ -119,6 +129,15 @@ def load_documents(docs_dir: Path) -> list[Document]:
         except Exception as e:
             print(f"  Error loading {xlsx_file.name}: {e}")
 
+    # Load Markdown files
+    for md_file in docs_dir.glob("*.md"):
+        try:
+            docs = load_md(md_file)
+            documents.extend(docs)
+            print(f"  Loaded MD: {md_file.name}")
+        except Exception as e:
+            print(f"  Error loading {md_file.name}: {e}")
+
     return documents
 
 
@@ -126,8 +145,8 @@ def chunk_documents(documents: list[Document]) -> list[Document]:
     """Split documents into semantic chunks.
 
     Uses RecursiveCharacterTextSplitter with:
-    - chunk_size: 2000 characters (~500 tokens)
-    - chunk_overlap: 200 characters (~50 tokens)
+    - chunk_size: 1200 characters (~300 tokens)
+    - chunk_overlap: 150 characters (~40 tokens)
 
     Args:
         documents: List of Document objects to chunk
@@ -136,8 +155,8 @@ def chunk_documents(documents: list[Document]) -> list[Document]:
         List of chunked Document objects
     """
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=2000,
-        chunk_overlap=200,
+        chunk_size=1200,
+        chunk_overlap=150,
         length_function=len,
         separators=["\n\n", "\n", " ", ""]
     )
