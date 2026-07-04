@@ -6,6 +6,18 @@
 
    IMPORTANT: All styles scoped to body.pof-theme
    When removed, Chainlit vanilla theme applies
+
+   --- CONFIRMED DARK-MODE MECHANISM (Chainlit 2.11.1) ---
+   Verified statically against the installed frontend build
+   (site-packages/chainlit/frontend/dist/assets/index-*.js):
+   Chainlit's ThemeProvider does:
+     document.documentElement.classList.remove("light","dark")
+     document.documentElement.classList.add(<resolved-theme>)
+   i.e. it toggles a "dark" / "light" class on <html> (NOT <body>,
+   NOT a data-theme attribute — the only data-theme hits in the
+   bundle belong to the unrelated `sonner` toast library).
+   Confirmed dark selector prefix to use everywhere in this file:
+     html.dark body.pof-theme { ... }
    =========================================== */
 
 /* --- Load Google Fonts --- */
