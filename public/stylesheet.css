@@ -18,55 +18,66 @@
    bundle belong to the unrelated `sonner` toast library).
    Confirmed dark selector prefix to use everywhere in this file:
      html.dark body.pof-theme { ... }
+
+   --- REAL SELECTORS TARGETED (confirmed from official sourcemap) ---
+   #welcome-screen, .logo, #message-composer, #chat-input, #chat-submit,
+   #stop-button, #starters / [id^="starter-"], #header, #new-chat-button,
+   #readme-button, #theme-toggle (native, untouched),
+   [data-step-type="user_message"] .bg-accent,
+   [data-step-type="assistant_message"] .ai-message / .message-content.
+   No invented wildcard selectors ([class*="..."]) are used below.
    =========================================== */
 
 /* --- Load Google Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 /* ===========================================
-   COLOR PALETTE (from design)
-   --color-bg: #fdf8e8 (cream)
-   --color-surface: #f0e6c8 (sand)
-   --color-teal: #5b8e7d (for starters)
-   --color-orange: #f4a259 (for send button)
-   --color-ink: #2b2b2b
-   --color-ink-muted: #8c8270
+   POF THEME VARIABLES (single source of truth)
+   Light values live on body.pof-theme; dark values
+   re-declare the SAME custom properties under the
+   confirmed html.dark hook so every rule below can
+   just reference var(--pof-*) and stay DRY.
    =========================================== */
 
-/* --- POF Theme Variables (Light Mode) --- */
 body.pof-theme {
-  --color-bg: #fdf8e8 !important;
-  --color-surface: #f0e6c8 !important;
-  --color-teal: #5b8e7d !important;
-  --color-teal-hover: #4a786a !important;
-  --color-orange: #f4a259 !important;
-  --color-orange-hover: #e8933f !important;
-  --color-red: #bc4b51 !important;
-  --color-yellow: #f4e285 !important;
-  --color-green: #8cb369 !important;
-  --color-ink: #2b2b2b !important;
-  --color-ink-muted: #8c8270 !important;
-  --hairline: rgba(0, 0, 0, 0.10) !important;
-  --hairline-soft: rgba(0, 0, 0, 0.06) !important;
-  --font-main: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-  --radius-sm: 3px !important;
+  --pof-bg: #fdf8e8;
+  --pof-surface: #f0e6c8;
+  --pof-teal: #5b8e7d;
+  --pof-teal-hover: #4a786a;
+  --pof-orange: #f4a259;
+  --pof-orange-hover: #e8933f;
+  --pof-red: #bc4b51;
+  --pof-yellow: #f4e285;
+  --pof-green: #8cb369;
+  --pof-ink: #2b2b2b;
+  --pof-ink-muted: #8c8270;
+  --pof-hairline: rgba(0, 0, 0, 0.10);
+  --pof-hairline-soft: rgba(0, 0, 0, 0.06);
+  --pof-font: Calibri, 'Carlito', 'Segoe UI', sans-serif;
+  --pof-radius-sm: 3px;
 }
 
-/* --- Dark Mode Variables --- */
-body.pof-theme[data-theme="dark"] {
-  --color-bg: #1a1814 !important;
-  --color-surface: #262218 !important;
-  --color-teal: #6fa593 !important;
-  --color-teal-hover: #8ab9aa !important;
-  --color-orange: #f4a259 !important;
-  --color-orange-hover: #f5b474 !important;
-  --color-ink: #f0e6c8 !important;
-  --color-ink-muted: #9a8f78 !important;
-  --hairline: rgba(240, 230, 200, 0.10) !important;
-  --hairline-soft: rgba(240, 230, 200, 0.06) !important;
+html.dark body.pof-theme {
+  --pof-bg: #1a1814;
+  --pof-surface: #262218;
+  --pof-teal: #6fa593;
+  --pof-teal-hover: #8ab9aa;
+  --pof-orange: #f4a259;
+  --pof-orange-hover: #f5b474;
+  --pof-ink: #f0e6c8;
+  --pof-ink-muted: #9a8f78;
+  --pof-hairline: rgba(240, 230, 200, 0.10);
+  --pof-hairline-soft: rgba(240, 230, 200, 0.06);
 }
 
-/* --- Chainlit CSS Variable Overrides (Light) --- */
+/* ===========================================
+   SHADCN / CHAINLIT HSL VARIABLE OVERRIDES
+   These are read by Chainlit's own Tailwind utility
+   classes (bg-accent, bg-card, text-muted-foreground,
+   etc.), so they recolor most of the app globally with
+   no per-element targeting needed.
+   =========================================== */
+
 body.pof-theme {
   --background: 48 73% 95% !important;
   --foreground: 0 0% 17% !important;
@@ -88,8 +99,7 @@ body.pof-theme {
   --ring: 158 22% 46% !important;
 }
 
-/* --- Chainlit CSS Variable Overrides (Dark) --- */
-body.pof-theme[data-theme="dark"] {
+html.dark body.pof-theme {
   --background: 30 15% 9% !important;
   --foreground: 43 40% 90% !important;
   --card: 35 18% 14% !important;
@@ -112,24 +122,14 @@ body.pof-theme[data-theme="dark"] {
    GLOBAL STYLES
    =========================================== */
 
-html, body.pof-theme {
-  background: #fdf8e8 !important;
-  background-color: #F0E6C8 !important;
-}
-
-body.pof-theme[data-theme="dark"],
-body.pof-theme[data-theme="dark"] html {
-  background: #1a1814 !important;
-  background-color: #1a1814 !important;
+html.pof-theme,
+body.pof-theme {
+  background: var(--pof-bg) !important;
 }
 
 body.pof-theme {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-  color: #2b2b2b !important;
-}
-
-body.pof-theme[data-theme="dark"] {
-  color: #f0e6c8 !important;
+  font-family: var(--pof-font) !important;
+  color: var(--pof-ink) !important;
 }
 
 body.pof-theme * {
@@ -140,107 +140,70 @@ body.pof-theme ::selection {
   background: rgba(91, 142, 125, 0.25) !important;
 }
 
-/* Force background on all containers */
-body.pof-theme #root,
-body.pof-theme [class*="App"],
-body.pof-theme [class*="app"],
-body.pof-theme main,
-body.pof-theme [class*="layout"],
-body.pof-theme [class*="Layout"],
-body.pof-theme [class*="container"],
-body.pof-theme [class*="Container"],
-body.pof-theme [class*="wrapper"],
-body.pof-theme [class*="Wrapper"],
-body.pof-theme [class*="content"],
-body.pof-theme [class*="Content"],
-body.pof-theme [class*="page"],
-body.pof-theme [class*="Page"],
-body.pof-theme [class*="view"],
-body.pof-theme [class*="View"],
-body.pof-theme .flex,
-body.pof-theme .flex-col,
-body.pof-theme .min-h-screen,
-body.pof-theme .h-full,
-body.pof-theme .w-full {
-  background: transparent !important;
-  background-color: inherit !important;
-}
-
 /* ===========================================
-   WELCOME SCREEN - TITLE
-   "Etienne Le Pironnec" next to logo
-   font-size: 52px, font-weight: 700, uppercase
+   WELCOME SCREEN
+   Native #welcome-screen contains ONLY the logo,
+   MessageComposer, then Starters. Title/subtitle are
+   injected by theme-switcher.js as stable DOM nodes.
    =========================================== */
 
-body.pof-theme [class*="WelcomeScreen"] h1,
-body.pof-theme [class*="welcome"] h1,
-body.pof-theme h1.text-2xl,
-body.pof-theme .text-2xl,
-body.pof-theme h1[class*="font-semibold"],
-body.pof-theme [class*="title"],
-body.pof-theme [class*="Title"] {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+body.pof-theme #welcome-screen {
+  text-align: center;
+}
+
+body.pof-theme #welcome-screen .logo {
+  width: 56px !important;
+  height: 56px !important;
+  margin: 0 auto 22px !important;
+  display: block;
+}
+
+body.pof-theme #pof-welcome-heading {
+  font-family: var(--pof-font) !important;
   font-weight: 700 !important;
   font-size: 52px !important;
   line-height: 1 !important;
   letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
-  color: #2b2b2b !important;
-  white-space: nowrap !important;
+  color: var(--pof-ink) !important;
+  margin: 0 auto 14px !important;
+  white-space: nowrap;
 }
 
-body.pof-theme[data-theme="dark"] [class*="WelcomeScreen"] h1,
-body.pof-theme[data-theme="dark"] [class*="welcome"] h1,
-body.pof-theme[data-theme="dark"] h1.text-2xl,
-body.pof-theme[data-theme="dark"] .text-2xl {
-  color: #f0e6c8 !important;
-}
-
-/* Subtitle: "Agent conversationnel - RAG ChainLit" */
-body.pof-theme [class*="WelcomeScreen"] p,
-body.pof-theme [class*="welcome"] p,
-body.pof-theme .text-muted-foreground,
-body.pof-theme [class*="description"],
-body.pof-theme [class*="subtitle"] {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+body.pof-theme #pof-welcome-subtitle {
+  font-family: var(--pof-font) !important;
   font-size: 11px !important;
   letter-spacing: 0.20em !important;
   text-transform: uppercase !important;
-  color: #8c8270 !important;
+  color: var(--pof-ink-muted) !important;
+  margin: 0 auto 44px !important;
+}
+
+/* Defensive fallback: if the JS ever fails to remove these nodes when
+   POF is disabled, never let them render unstyled in vanilla mode. */
+body:not(.pof-theme) #pof-welcome-heading,
+body:not(.pof-theme) #pof-welcome-subtitle {
+  display: none !important;
+}
+
+body.pof-theme #starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  justify-content: center;
 }
 
 /* ===========================================
-   STARTER BUTTONS - TEAL (#5b8e7d)
-   Pills with rounded corners (999px)
-
-   Chainlit uses TailwindCSS classes like:
-   - rounded-full, inline-flex, bg-muted, etc.
+   STARTER PILLS - TEAL (#5b8e7d)
+   Robust real selectors: #starters button / [id^="starter-"]
    =========================================== */
 
-/* Target all possible starter button patterns */
-body.pof-theme button[class*="starter"],
-body.pof-theme [class*="Starter"] button,
-body.pof-theme [class*="starters"] button,
-body.pof-theme [class*="Starters"] button,
-body.pof-theme .inline-flex[class*="starter"],
-body.pof-theme button[class*="Starter"],
-body.pof-theme [class*="chip"],
-body.pof-theme [class*="Chip"],
-body.pof-theme [class*="suggestion"],
-body.pof-theme [class*="Suggestion"],
-body.pof-theme button.rounded-full:not([type="submit"]):not(#theme-toggle-btn):not(#dark-mode-toggle-btn),
-body.pof-theme button[class*="rounded-full"]:not([type="submit"]):not(#theme-toggle-btn):not(#dark-mode-toggle-btn),
-body.pof-theme [class*="flex-wrap"] > button,
-body.pof-theme [class*="gap-2"] > button:not([type="submit"]),
-body.pof-theme [class*="gap-3"] > button:not([type="submit"]),
-body.pof-theme button[class*="bg-muted"],
-body.pof-theme button[class*="bg-secondary"],
-body.pof-theme button.inline-flex[class*="items-center"][class*="rounded"] {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+body.pof-theme #starters button,
+body.pof-theme [id^="starter-"] {
+  font-family: var(--pof-font) !important;
   font-size: 13px !important;
-  color: #fdf8e8 !important;
-  background: #5b8e7d !important;
-  background-color: #5b8e7d !important;
+  color: var(--pof-bg) !important;
+  background: var(--pof-teal) !important;
   border: 1px solid transparent !important;
   border-radius: 999px !important;
   padding: 10px 18px !important;
@@ -248,428 +211,177 @@ body.pof-theme button.inline-flex[class*="items-center"][class*="rounded"] {
   transition: background 0.2s ease !important;
 }
 
-body.pof-theme button[class*="starter"]:hover,
-body.pof-theme [class*="Starter"] button:hover,
-body.pof-theme [class*="starters"] button:hover,
-body.pof-theme [class*="Starters"] button:hover,
-body.pof-theme button.rounded-full:not([type="submit"]):not(#theme-toggle-btn):not(#dark-mode-toggle-btn):hover,
-body.pof-theme [class*="flex-wrap"] > button:hover,
-body.pof-theme button[class*="bg-muted"]:hover,
-body.pof-theme button[class*="bg-secondary"]:hover {
-  background: #4a786a !important;
-  background-color: #4a786a !important;
+body.pof-theme #starters button:hover,
+body.pof-theme [id^="starter-"]:hover {
+  background: var(--pof-teal-hover) !important;
 }
 
-body.pof-theme[data-theme="dark"] button[class*="starter"],
-body.pof-theme[data-theme="dark"] [class*="Starter"] button,
-body.pof-theme[data-theme="dark"] [class*="starters"] button,
-body.pof-theme[data-theme="dark"] button.rounded-full:not([type="submit"]):not(#theme-toggle-btn):not(#dark-mode-toggle-btn),
-body.pof-theme[data-theme="dark"] [class*="flex-wrap"] > button,
-body.pof-theme[data-theme="dark"] button[class*="bg-muted"],
-body.pof-theme[data-theme="dark"] button[class*="bg-secondary"] {
-  color: #1a1814 !important;
-  background: #6fa593 !important;
-  background-color: #6fa593 !important;
-}
-
-body.pof-theme[data-theme="dark"] button[class*="starter"]:hover,
-body.pof-theme[data-theme="dark"] [class*="Starter"] button:hover,
-body.pof-theme[data-theme="dark"] button.rounded-full:not([type="submit"]):not(#theme-toggle-btn):not(#dark-mode-toggle-btn):hover {
-  background: #8ab9aa !important;
-  background-color: #8ab9aa !important;
+/* Force the inner label paragraph to inherit the pill's text color */
+body.pof-theme #starters button p.text-muted-foreground,
+body.pof-theme [id^="starter-"] p.text-muted-foreground {
+  color: inherit !important;
 }
 
 /* ===========================================
    MESSAGE COMPOSER
-   Background: #f0e6c8 (surface)
-   Border-radius: 14px
    =========================================== */
 
-body.pof-theme [class*="composer"],
-body.pof-theme [class*="Composer"],
-body.pof-theme [class*="MessageComposer"],
-body.pof-theme [class*="input-container"],
-body.pof-theme [class*="InputContainer"],
-body.pof-theme form[class*="flex"] {
-  background: #f0e6c8 !important;
-  background-color: #f0e6c8 !important;
-  border: 1px solid rgba(0, 0, 0, 0.10) !important;
+body.pof-theme #message-composer {
+  background: var(--pof-surface) !important;
+  border: 1px solid var(--pof-hairline) !important;
   border-radius: 14px !important;
 }
 
-body.pof-theme[data-theme="dark"] [class*="composer"],
-body.pof-theme[data-theme="dark"] [class*="Composer"],
-body.pof-theme[data-theme="dark"] [class*="MessageComposer"] {
-  background: #262218 !important;
-  background-color: #262218 !important;
-  border: 1px solid rgba(240, 230, 200, 0.10) !important;
-}
-
-body.pof-theme textarea,
-body.pof-theme [class*="input"] textarea,
-body.pof-theme input[type="text"] {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+body.pof-theme #chat-input {
+  font-family: var(--pof-font) !important;
   font-size: 15px !important;
-  color: #2b2b2b !important;
+  line-height: 1.4 !important;
+  color: var(--pof-ink) !important;
   background: transparent !important;
 }
 
-body.pof-theme[data-theme="dark"] textarea,
-body.pof-theme[data-theme="dark"] input[type="text"] {
-  color: #f0e6c8 !important;
-}
-
-body.pof-theme textarea::placeholder {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-  color: #8c8270 !important;
+body.pof-theme #chat-input::placeholder {
+  font-family: var(--pof-font) !important;
+  color: var(--pof-ink-muted) !important;
 }
 
 /* ===========================================
-   SEND BUTTON - ORANGE (#f4a259)
-   Rounded circle (999px), 36x36px
+   SEND BUTTON - ORANGE (#f4a259), circle 999px
    =========================================== */
 
-body.pof-theme button[class*="send"],
-body.pof-theme [class*="SendButton"],
-body.pof-theme [class*="sendButton"],
-body.pof-theme [class*="submit"],
-body.pof-theme [class*="Submit"],
-body.pof-theme button[type="submit"]:not(#theme-toggle-btn):not([class*="starter"]):not([class*="Starter"]),
-body.pof-theme button svg[class*="arrow"],
-body.pof-theme button[aria-label*="send" i],
-body.pof-theme button[aria-label*="envoyer" i],
-body.pof-theme button[aria-label*="submit" i] {
-  background: #f4a259 !important;
-  background-color: #f4a259 !important;
+body.pof-theme #chat-submit {
+  background: var(--pof-orange) !important;
   border-radius: 999px !important;
-  color: #2b2b2b !important;
+  color: var(--pof-ink) !important;
   border: none !important;
 }
 
-body.pof-theme button[class*="send"]:hover,
-body.pof-theme [class*="SendButton"]:hover,
-body.pof-theme [class*="sendButton"]:hover,
-body.pof-theme button[type="submit"]:not(#theme-toggle-btn):not([class*="starter"]):hover {
-  background: #e8933f !important;
-  background-color: #e8933f !important;
+body.pof-theme #chat-submit:hover {
+  background: var(--pof-orange-hover) !important;
 }
 
-/* Ensure the icon inside is dark */
-body.pof-theme button[class*="send"] svg,
-body.pof-theme [class*="SendButton"] svg,
-body.pof-theme button[type="submit"]:not(#theme-toggle-btn):not([class*="starter"]) svg {
-  color: #2b2b2b !important;
-  stroke: #2b2b2b !important;
+body.pof-theme #chat-submit svg {
+  color: var(--pof-ink) !important;
+  stroke: var(--pof-ink) !important;
+}
+
+/* #stop-button replaces #chat-submit while streaming */
+body.pof-theme #stop-button {
+  background: var(--pof-red) !important;
+  border-radius: 999px !important;
+  color: var(--pof-bg) !important;
+  border: none !important;
 }
 
 /* ===========================================
    USER MESSAGES
-   Right-aligned, special radius (18px 18px 4px 18px)
-   Background: #f0e6c8
+   Wrapper: [data-step-type="user_message"]
+   Bubble: real Tailwind classes px-5 py-2.5 bg-accent
+   rounded-3xl (+ ml-auto, max-w-[70%] — left untouched)
    =========================================== */
 
-body.pof-theme [class*="user-message"],
-body.pof-theme [class*="UserMessage"],
-body.pof-theme [data-role="user"],
-body.pof-theme [class*="human"],
-body.pof-theme [class*="Human"] {
-  background: #f0e6c8 !important;
-  background-color: #f0e6c8 !important;
-  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+body.pof-theme [data-step-type="user_message"] .bg-accent {
+  background: var(--pof-surface) !important;
+  border: 1px solid var(--pof-hairline-soft) !important;
   border-radius: 18px 18px 4px 18px !important;
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+  font-family: var(--pof-font) !important;
   font-size: 20px !important;
   line-height: 1.5 !important;
-  color: #2b2b2b !important;
-  padding: 16px 22px !important;
-  max-width: 580px !important;
-}
-
-body.pof-theme[data-theme="dark"] [class*="user-message"],
-body.pof-theme[data-theme="dark"] [class*="UserMessage"],
-body.pof-theme[data-theme="dark"] [data-role="user"] {
-  background: #262218 !important;
-  background-color: #262218 !important;
-  border: 1px solid rgba(240, 230, 200, 0.06) !important;
-  color: #f0e6c8 !important;
+  color: var(--pof-ink) !important;
 }
 
 /* ===========================================
    ASSISTANT MESSAGES
-   Left-aligned, with avatar
+   Wrapper: [data-step-type="assistant_message"]
+   Body: .ai-message, markdown: .message-content
    =========================================== */
 
-body.pof-theme [class*="assistant-message"],
-body.pof-theme [class*="AssistantMessage"],
-body.pof-theme [data-role="assistant"],
-body.pof-theme [class*="ai"],
-body.pof-theme [class*="AI"] {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+body.pof-theme [data-step-type="assistant_message"] .ai-message,
+body.pof-theme [data-step-type="assistant_message"] .message-content {
+  font-family: var(--pof-font) !important;
   font-size: 20px !important;
   line-height: 1.6 !important;
-  color: #2b2b2b !important;
+  color: var(--pof-ink) !important;
 }
 
-body.pof-theme[data-theme="dark"] [class*="assistant-message"],
-body.pof-theme[data-theme="dark"] [class*="AssistantMessage"],
-body.pof-theme[data-theme="dark"] [data-role="assistant"] {
-  color: #f0e6c8 !important;
-}
-
-body.pof-theme [data-role="assistant"] p:first-of-type {
+body.pof-theme [data-step-type="assistant_message"] .message-content > p:first-child {
   font-weight: 500 !important;
   font-size: 22px !important;
   line-height: 1.45 !important;
 }
 
-/* Message author attribution */
-body.pof-theme [class*="message-author"],
-body.pof-theme [class*="MessageAuthor"],
-body.pof-theme [class*="author"],
-body.pof-theme [class*="Author"] {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-  font-size: 11px !important;
-  letter-spacing: 0.14em !important;
-  text-transform: uppercase !important;
-  color: #8c8270 !important;
-  margin-bottom: 10px !important;
+body.pof-theme [data-step-type="assistant_message"] .message-content a {
+  color: var(--pof-teal) !important;
 }
 
-/* ===========================================
-   MESSAGE ACTIONS (Copy, Regenerate)
-   =========================================== */
+body.pof-theme [data-step-type="assistant_message"] .message-content a:hover {
+  color: var(--pof-teal-hover) !important;
+}
 
-body.pof-theme [class*="message-actions"] button,
-body.pof-theme [class*="MessageActions"] button,
-body.pof-theme [class*="actions"] button:not([class*="send"]):not([class*="submit"]) {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+body.pof-theme [data-step-type="assistant_message"] .message-content h1,
+body.pof-theme [data-step-type="assistant_message"] .message-content h2,
+body.pof-theme [data-step-type="assistant_message"] .message-content h3 {
+  font-family: var(--pof-font) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  color: var(--pof-ink) !important;
+}
+
+body.pof-theme [data-step-type="assistant_message"] .message-content pre,
+body.pof-theme [data-step-type="assistant_message"] .message-content code {
+  font-family: Consolas, 'Courier New', monospace !important;
+  background: var(--pof-surface) !important;
+  border: 1px solid var(--pof-hairline) !important;
+  border-radius: var(--pof-radius-sm) !important;
+}
+
+/* Action row (copy / regenerate) */
+body.pof-theme [data-step-type="assistant_message"] .flex.items-center.flex-wrap button {
+  font-family: var(--pof-font) !important;
   font-size: 11px !important;
   letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  color: #8c8270 !important;
+  color: var(--pof-ink-muted) !important;
   background: transparent !important;
   border: none !important;
 }
 
-body.pof-theme [class*="message-actions"] button:hover,
-body.pof-theme [class*="MessageActions"] button:hover {
-  color: #5b8e7d !important;
+body.pof-theme [data-step-type="assistant_message"] .flex.items-center.flex-wrap button:hover {
+  color: var(--pof-teal) !important;
 }
 
 /* ===========================================
-   HEADER
+   HEADER (60px, #header)
+   Native controls (#new-chat-button, #readme-button,
+   #theme-toggle) are only recolored, never hidden/broken.
    =========================================== */
 
-body.pof-theme header,
-body.pof-theme [class*="Header"],
-body.pof-theme [class*="header"],
-body.pof-theme nav {
+body.pof-theme #header {
   background: transparent !important;
   border-bottom: none !important;
 }
 
-body.pof-theme header a,
-body.pof-theme [class*="Header"] a,
-body.pof-theme nav a {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+body.pof-theme #header a {
+  font-family: var(--pof-font) !important;
   font-size: 13px !important;
   letter-spacing: 0.05em !important;
-  color: #2b2b2b !important;
+  color: var(--pof-ink) !important;
   text-decoration: none !important;
   text-transform: lowercase !important;
 }
 
-body.pof-theme[data-theme="dark"] header a,
-body.pof-theme[data-theme="dark"] [class*="Header"] a,
-body.pof-theme[data-theme="dark"] nav a {
-  color: #f0e6c8 !important;
+body.pof-theme #new-chat-button,
+body.pof-theme #readme-button,
+body.pof-theme #theme-toggle {
+  color: var(--pof-ink-muted) !important;
+  border-radius: var(--pof-radius-sm) !important;
 }
 
-/* ===========================================
-   SIDEBAR
-   =========================================== */
-
-body.pof-theme [class*="sidebar"],
-body.pof-theme [class*="Sidebar"],
-body.pof-theme aside {
-  background: #f0e6c8 !important;
-  background-color: #f0e6c8 !important;
-  border-right: 1px solid rgba(0, 0, 0, 0.10) !important;
-}
-
-body.pof-theme[data-theme="dark"] [class*="sidebar"],
-body.pof-theme[data-theme="dark"] [class*="Sidebar"],
-body.pof-theme[data-theme="dark"] aside {
-  background: #262218 !important;
-  background-color: #262218 !important;
-  border-right: 1px solid rgba(240, 230, 200, 0.10) !important;
-}
-
-/* ===========================================
-   BUTTONS (general)
-   =========================================== */
-
-body.pof-theme button:not(#theme-toggle-btn):not(#dark-mode-toggle-btn) {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-}
-
-body.pof-theme button[class*="icon"],
-body.pof-theme [class*="IconButton"] {
-  color: #8c8270 !important;
-}
-
-body.pof-theme button[class*="icon"]:hover,
-body.pof-theme [class*="IconButton"]:hover {
-  color: #5b8e7d !important;
-}
-
-/* ===========================================
-   FOOTER / DISCLAIMER
-   =========================================== */
-
-body.pof-theme [class*="disclaimer"],
-body.pof-theme [class*="Disclaimer"],
-body.pof-theme footer p,
-body.pof-theme [class*="footer"],
-body.pof-theme [class*="Footer"] {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-  font-size: 11px !important;
-  letter-spacing: 0.05em !important;
-  color: #8c8270 !important;
-  text-align: center !important;
-}
-
-/* ===========================================
-   CARDS / PANELS
-   =========================================== */
-
-body.pof-theme [class*="card"],
-body.pof-theme [class*="Card"],
-body.pof-theme [class*="panel"],
-body.pof-theme [class*="Panel"],
-body.pof-theme [class*="dialog"],
-body.pof-theme [class*="Dialog"],
-body.pof-theme [class*="modal"],
-body.pof-theme [class*="Modal"] {
-  background: #f0e6c8 !important;
-  background-color: #f0e6c8 !important;
-  border: 1px solid rgba(0, 0, 0, 0.10) !important;
-  border-radius: 14px !important;
-}
-
-body.pof-theme[data-theme="dark"] [class*="card"],
-body.pof-theme[data-theme="dark"] [class*="Card"],
-body.pof-theme[data-theme="dark"] [class*="panel"],
-body.pof-theme[data-theme="dark"] [class*="Panel"] {
-  background: #262218 !important;
-  background-color: #262218 !important;
-  border: 1px solid rgba(240, 230, 200, 0.10) !important;
-}
-
-/* ===========================================
-   LINKS
-   =========================================== */
-
-body.pof-theme a:not(#theme-toggle-btn) {
-  color: #5b8e7d !important;
-}
-
-body.pof-theme a:not(#theme-toggle-btn):hover {
-  color: #4a786a !important;
-}
-
-body.pof-theme[data-theme="dark"] a:not(#theme-toggle-btn) {
-  color: #6fa593 !important;
-}
-
-/* ===========================================
-   CODE BLOCKS
-   =========================================== */
-
-body.pof-theme pre,
-body.pof-theme code {
-  font-family: Consolas, 'Courier New', monospace !important;
-  background: #f0e6c8 !important;
-  background-color: #f0e6c8 !important;
-  border: 1px solid rgba(0, 0, 0, 0.10) !important;
-  border-radius: 3px !important;
-}
-
-body.pof-theme[data-theme="dark"] pre,
-body.pof-theme[data-theme="dark"] code {
-  background: #262218 !important;
-  background-color: #262218 !important;
-  border: 1px solid rgba(240, 230, 200, 0.10) !important;
-}
-
-/* ===========================================
-   MARKDOWN CONTENT
-   =========================================== */
-
-body.pof-theme [class*="markdown"] h1,
-body.pof-theme [class*="markdown"] h2,
-body.pof-theme [class*="markdown"] h3,
-body.pof-theme .prose h1,
-body.pof-theme .prose h2,
-body.pof-theme .prose h3 {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-  font-weight: 700 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.04em !important;
-  color: #2b2b2b !important;
-}
-
-body.pof-theme[data-theme="dark"] [class*="markdown"] h1,
-body.pof-theme[data-theme="dark"] [class*="markdown"] h2,
-body.pof-theme[data-theme="dark"] [class*="markdown"] h3 {
-  color: #f0e6c8 !important;
-}
-
-body.pof-theme [class*="markdown"] p,
-body.pof-theme [class*="markdown"] li,
-body.pof-theme .prose p,
-body.pof-theme .prose li {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-  font-size: 18px !important;
-  line-height: 1.6 !important;
-  color: #2b2b2b !important;
-}
-
-body.pof-theme[data-theme="dark"] [class*="markdown"] p,
-body.pof-theme[data-theme="dark"] [class*="markdown"] li {
-  color: #f0e6c8 !important;
-}
-
-/* ===========================================
-   PRIMARY BUTTONS
-   =========================================== */
-
-body.pof-theme [class*="primary"]:not([class*="starter"]),
-body.pof-theme .bg-primary:not([class*="starter"]) {
-  background-color: #5b8e7d !important;
-  color: #fdf8e8 !important;
-}
-
-body.pof-theme [class*="primary"]:not([class*="starter"]):hover {
-  background-color: #4a786a !important;
-}
-
-/* ===========================================
-   BADGES / TAGS
-   =========================================== */
-
-body.pof-theme [class*="badge"],
-body.pof-theme [class*="Badge"],
-body.pof-theme [class*="tag"],
-body.pof-theme [class*="Tag"] {
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
-  font-size: 11px !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
-  background: #5b8e7d !important;
-  background-color: #5b8e7d !important;
-  color: #fdf8e8 !important;
-  border-radius: 999px !important;
+body.pof-theme #new-chat-button:hover,
+body.pof-theme #readme-button:hover,
+body.pof-theme #theme-toggle:hover {
+  color: var(--pof-ink) !important;
 }
 
 /* ===========================================
@@ -682,27 +394,26 @@ body.pof-theme ::-webkit-scrollbar {
 }
 
 body.pof-theme ::-webkit-scrollbar-track {
-  background: #fdf8e8;
-}
-
-body.pof-theme[data-theme="dark"] ::-webkit-scrollbar-track {
-  background: #1a1814;
+  background: var(--pof-bg);
 }
 
 body.pof-theme ::-webkit-scrollbar-thumb {
-  background: #8c8270;
+  background: var(--pof-ink-muted);
   border-radius: 4px;
 }
 
 body.pof-theme ::-webkit-scrollbar-thumb:hover {
-  background: #5b8e7d;
+  background: var(--pof-teal);
 }
 
 /* ===========================================
-   THEME TOGGLE BUTTON
+   VANILLA <-> PERSONNALISE TOGGLE BUTTON
+   id: #pof-theme-toggle-btn (distinct from native
+   #theme-toggle — see POF-03). Always visible, does
+   not overlap header controls.
    =========================================== */
 
-#theme-toggle-btn {
+#pof-theme-toggle-btn {
   position: fixed !important;
   bottom: 20px !important;
   left: 20px !important;
@@ -717,76 +428,24 @@ body.pof-theme ::-webkit-scrollbar-thumb:hover {
   font-weight: 500 !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid transparent !important;
 }
 
-body.pof-theme #theme-toggle-btn {
-  background: #f0e6c8 !important;
-  color: #2b2b2b !important;
-  border: 1px solid rgba(0, 0, 0, 0.10) !important;
+body.pof-theme #pof-theme-toggle-btn {
+  background: var(--pof-surface) !important;
+  color: var(--pof-ink) !important;
+  border: 1px solid var(--pof-hairline) !important;
 }
 
-body.pof-theme[data-theme="dark"] #theme-toggle-btn {
-  background: #262218 !important;
-  color: #f0e6c8 !important;
-  border: 1px solid rgba(240, 230, 200, 0.10) !important;
-}
-
-body:not(.pof-theme) #theme-toggle-btn {
+/* Button styling in vanilla Chainlit (body.pof-theme absent) */
+body:not(.pof-theme) #pof-theme-toggle-btn {
   background: hsl(var(--card, 0 0% 100%)) !important;
   color: hsl(var(--foreground, 0 0% 0%)) !important;
   border: 1px solid hsl(var(--border, 0 0% 90%)) !important;
 }
 
-#theme-toggle-btn:hover {
+#pof-theme-toggle-btn:hover {
   transform: scale(1.05) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
-}
-
-/* ===========================================
-   DARK MODE TOGGLE (within POF)
-   =========================================== */
-
-#dark-mode-toggle-btn {
-  position: fixed !important;
-  bottom: 20px !important;
-  left: 145px !important;
-  z-index: 99999 !important;
-  width: 36px !important;
-  height: 36px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 999px !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
-}
-
-body.pof-theme #dark-mode-toggle-btn {
-  background: #f0e6c8 !important;
-  color: #8c8270 !important;
-  border: 1px solid rgba(0, 0, 0, 0.10) !important;
-}
-
-body.pof-theme[data-theme="dark"] #dark-mode-toggle-btn {
-  background: #262218 !important;
-  color: #9a8f78 !important;
-  border: 1px solid rgba(240, 230, 200, 0.10) !important;
-}
-
-body:not(.pof-theme) #dark-mode-toggle-btn {
-  display: none !important;
-}
-
-#dark-mode-toggle-btn:hover {
-  transform: scale(1.1) !important;
-}
-
-body.pof-theme #dark-mode-toggle-btn:hover {
-  color: #5b8e7d !important;
-}
-
-body.pof-theme[data-theme="dark"] #dark-mode-toggle-btn:hover {
-  color: #6fa593 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }
