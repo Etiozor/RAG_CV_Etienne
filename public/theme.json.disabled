@@ -1,0 +1,93 @@
+{
+  "variables": {
+    "light": {
+      "--font-sans": "'Space Mono', ui-monospace, Menlo, monospace",
+      "--font-mono": "'Space Mono', ui-monospace, Menlo, monospace",
+
+      "--background": "48 73% 95%",
+      "--foreground": "0 0% 17%",
+
+      "--card": "43 53% 86%",
+      "--card-foreground": "0 0% 17%",
+
+      "--popover": "48 73% 95%",
+      "--popover-foreground": "0 0% 17%",
+
+      "--primary": "158 22% 46%",
+      "--primary-foreground": "48 73% 95%",
+
+      "--secondary": "43 53% 86%",
+      "--secondary-foreground": "0 0% 17%",
+
+      "--muted": "43 40% 84%",
+      "--muted-foreground": "40 11% 49%",
+
+      "--accent": "158 22% 46%",
+      "--accent-foreground": "48 73% 95%",
+
+      "--destructive": "355 52% 52%",
+      "--destructive-foreground": "48 73% 95%",
+
+      "--border": "0 0% 0% / 0.10",
+      "--input": "43 53% 86%",
+      "--ring": "158 22% 46%",
+
+      "--radius": "0.5rem",
+
+      "--sidebar-background": "43 40% 84%",
+      "--sidebar-foreground": "0 0% 17%",
+      "--sidebar-primary": "158 22% 46%",
+      "--sidebar-primary-foreground": "48 73% 95%",
+      "--sidebar-accent": "158 22% 46%",
+      "--sidebar-accent-foreground": "48 73% 95%",
+      "--sidebar-border": "0 0% 0% / 0.10",
+      "--sidebar-ring": "158 22% 46%"
+    },
+    "dark": {
+      "--font-sans": "'Space Mono', ui-monospace, Menlo, monospace",
+      "--font-mono": "'Space Mono', ui-monospace, Menlo, monospace",
+
+      "--background": "40 15% 12%",
+      "--foreground": "43 40% 90%",
+
+      "--card": "40 12% 18%",
+      "--card-foreground": "43 40% 90%",
+
+      "--popover": "40 15% 12%",
+      "--popover-foreground": "43 40% 90%",
+
+      "--primary": "158 22% 46%",
+      "--primary-foreground": "40 15% 12%",
+
+      "--secondary": "40 12% 22%",
+      "--secondary-foreground": "43 40% 90%",
+
+      "--muted": "40 10% 25%",
+      "--muted-foreground": "40 15% 60%",
+
+      "--accent": "158 22% 46%",
+      "--accent-foreground": "40 15% 12%",
+
+      "--destructive": "355 52% 52%",
+      "--destructive-foreground": "43 40% 90%",
+
+      "--border": "43 40% 90% / 0.10",
+      "--input": "40 12% 22%",
+      "--ring": "158 22% 46%",
+
+      "--radius": "0.5rem",
+
+      "--sidebar-background": "40 12% 15%",
+      "--sidebar-foreground": "43 40% 90%",
+      "--sidebar-primary": "158 22% 46%",
+      "--sidebar-primary-foreground": "40 15% 12%",
+      "--sidebar-accent": "158 22% 46%",
+      "--sidebar-accent-foreground": "40 15% 12%",
+      "--sidebar-border": "43 40% 90% / 0.10",
+      "--sidebar-ring": "158 22% 46%"
+    }
+  },
+  "custom_fonts": [
+    "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Oswald:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+  ]
+}

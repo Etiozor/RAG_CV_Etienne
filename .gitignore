@@ -14,8 +14,6 @@ __pycache__/
 dist/
 build/
 
-# Chainlit
-.chainlit/
 
 # Testing
 .pytest_cache/

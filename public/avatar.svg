@@ -1,0 +1,9 @@
+<svg width="28" height="28" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Four-petal mark - POF avatar (light mode) -->
+  <circle cx="28" cy="14" r="9" fill="#5b8e7d"></circle>
+  <circle cx="28" cy="42" r="9" fill="#5b8e7d"></circle>
+  <circle cx="14" cy="28" r="9" fill="#5b8e7d"></circle>
+  <circle cx="42" cy="28" r="9" fill="#5b8e7d"></circle>
+  <!-- Center cutout - cream background -->
+  <circle cx="28" cy="28" r="6" fill="#fdf8e8"></circle>
+</svg>
