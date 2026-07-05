@@ -136,11 +136,24 @@
     }
   }
 
+  // Tracks the POF-enabled state last rendered into the toggle button's
+  // innerHTML. Without this guard, ensureToggleButton() would rewrite
+  // innerHTML on every reapply() tick (setInterval + bodyObserver), and
+  // since the button lives inside document.body, each rewrite is itself
+  // a childList/subtree mutation that re-triggers bodyObserver -> reapply()
+  // -> ensureToggleButton() -> rewrite -> ... — a tight MutationObserver
+  // feedback loop that saturates the microtask queue and starves click
+  // dispatch for every button on the page (not just this one).
+  let lastRenderedToggleState = null;
+
   function handleToggleClick() {
     setPofEnabled(!isPofEnabled());
     applyTheme();
     const btn = document.getElementById(TOGGLE_ID);
-    if (btn) updateToggleButtonLabel(btn);
+    if (btn) {
+      updateToggleButtonLabel(btn);
+      lastRenderedToggleState = isPofEnabled();
+    }
   }
 
   function ensureToggleButton() {
@@ -151,8 +164,13 @@
       btn.type = 'button';
       btn.addEventListener('click', handleToggleClick);
       document.body.appendChild(btn);
+      lastRenderedToggleState = null; // force a label render for the new button
     }
-    updateToggleButtonLabel(btn);
+    const currentState = isPofEnabled();
+    if (lastRenderedToggleState !== currentState) {
+      updateToggleButtonLabel(btn);
+      lastRenderedToggleState = currentState;
+    }
   }
 
   // ===== REAPPLY AFTER CHAINLIT RE-RENDERS =====
