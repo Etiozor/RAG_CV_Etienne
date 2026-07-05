@@ -29,7 +29,7 @@
    =========================================== */
 
 /* --- Load Google Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap');
 
 /* ===========================================
    POF THEME VARIABLES (single source of truth)
@@ -53,7 +53,7 @@ body.pof-theme {
   --pof-ink-muted: #8c8270;
   --pof-hairline: rgba(0, 0, 0, 0.10);
   --pof-hairline-soft: rgba(0, 0, 0, 0.06);
-  --pof-font: Calibri, 'Carlito', 'Segoe UI', sans-serif;
+  --pof-font: 'Barlow', sans-serif;
   --pof-radius-sm: 3px;
 }
 
@@ -423,7 +423,10 @@ body.pof-theme ::-webkit-scrollbar-thumb:hover {
   gap: 8px !important;
   padding: 10px 16px !important;
   border-radius: 999px !important;
-  font-family: Calibri, 'Carlito', 'Segoe UI', sans-serif !important;
+  /* Neutral system font stack: this is chrome (not POF "content"), and
+     since the base rule applies in vanilla mode too (no body.pof-theme
+     scope), it must not depend on the Barlow webfont at all. */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important;
   font-size: 12px !important;
   font-weight: 500 !important;
   cursor: pointer !important;
@@ -436,6 +439,7 @@ body.pof-theme #pof-theme-toggle-btn {
   background: var(--pof-surface) !important;
   color: var(--pof-ink) !important;
   border: 1px solid var(--pof-hairline) !important;
+  font-family: var(--pof-font) !important;
 }
 
 /* Button styling in vanilla Chainlit (body.pof-theme absent) */

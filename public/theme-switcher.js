@@ -15,12 +15,33 @@
   const POF_LOGO = '/public/logo.svg';
   const POF_LOGO_DARK = '/public/logo-dark.svg';
 
+  // Vanilla mode restores Chainlit's OWN default logo/title (not just "no
+  // custom styling"). Confirmed against the installed chainlit 2.11.1
+  // package:
+  // - server.py's GET /logo route globs "public/logo_{theme}.*" first; our
+  //   files are named "logo.svg"/"logo-dark.svg" (no _light/_dark suffix)
+  //   so they never match that glob, and the route falls through to the
+  //   frontend build's own bundled default logo. Hitting /logo?theme=light
+  //   or /logo?theme=dark therefore serves Chainlit's true default logo.
+  // - server.py templates <title>{config.ui.name}</title> server-side; the
+  //   true hardcoded Chainlit default (chainlit/config.py DEFAULT_CONFIG_STR)
+  //   is "Assistant".
+  const VANILLA_LOGO_LIGHT = '/logo?theme=light';
+  const VANILLA_LOGO_DARK = '/logo?theme=dark';
+  const VANILLA_TITLE = 'Assistant';
+
   const HEADING_ID = 'pof-welcome-heading';
   const SUBTITLE_ID = 'pof-welcome-subtitle';
   const TOGGLE_ID = 'pof-theme-toggle-btn';
 
   const HEADING_TEXT = 'Etienne Le Pironnec';
   const SUBTITLE_TEXT = 'Agent conversationnel — RAG ChainLit';
+
+  // Captured once at script init: this is the server-rendered custom title
+  // from config.toml's [UI] name (e.g. "Etienne Le Pironnec"). Read
+  // dynamically rather than hardcoded so it stays correct if config.toml's
+  // name ever changes.
+  const CUSTOM_TITLE = document.title;
 
   // ===== STATE =====
 
@@ -83,19 +104,47 @@
     }
   }
 
-  // ===== LOGO LIGHT/DARK SYNC =====
-  // Swap the welcome logo asset to match Chainlit's native dark/light
-  // state. Uses img.src update only — does not fight Chainlit's own
-  // logo_file_url wiring in .chainlit/config.toml.
+  // ===== LOGO SYNC (POF asset vs Chainlit's own default) =====
+  // When POF is enabled, swap the welcome logo to match Chainlit's native
+  // dark/light state (logo.svg / logo-dark.svg) — uses img.src update only,
+  // does not fight Chainlit's own logo_file_url wiring in config.toml.
+  // When POF is disabled, restore Chainlit's TRUE default logo by hitting
+  // its own /logo?theme=... route directly (see VANILLA_LOGO_* comment
+  // above for why this bypasses our custom logo_file_url).
+
+  function logoUrlMatches(img, desired) {
+    try {
+      const current = new URL(img.src, window.location.origin);
+      const target = new URL(desired, window.location.origin);
+      return current.pathname + current.search === target.pathname + target.search;
+    } catch (e) {
+      return img.src === desired;
+    }
+  }
 
   function syncLogo() {
-    const desired = isDarkMode() ? POF_LOGO_DARK : POF_LOGO;
-    const desiredFile = desired.split('/').pop();
+    const dark = isDarkMode();
+    const desired = isPofEnabled()
+      ? (dark ? POF_LOGO_DARK : POF_LOGO)
+      : (dark ? VANILLA_LOGO_DARK : VANILLA_LOGO_LIGHT);
+
     document.querySelectorAll('#welcome-screen .logo').forEach((img) => {
-      if (img.tagName === 'IMG' && !img.src.includes(desiredFile)) {
+      if (img.tagName === 'IMG' && !logoUrlMatches(img, desired)) {
         img.src = desired;
       }
     });
+  }
+
+  // ===== TITLE SYNC (custom title vs Chainlit's own default) =====
+  // When POF is disabled, restore Chainlit's true hardcoded default title
+  // ("Assistant"); when re-enabled, restore the server-rendered custom
+  // title captured at script init.
+
+  function syncTitle() {
+    const desired = isPofEnabled() ? CUSTOM_TITLE : VANILLA_TITLE;
+    if (document.title !== desired) {
+      document.title = desired;
+    }
   }
 
   // ===== APPLY THEME =====
@@ -108,6 +157,7 @@
     }
     injectWelcomeText();
     syncLogo();
+    syncTitle();
   }
 
   // ===== TOGGLE BUTTON (Vanilla <-> Personnalise) =====
