@@ -23,7 +23,7 @@ if not os.getenv("ANTHROPIC_API_KEY"):
     )
 
 # Claude Haiku - economical with excellent French support
-MODEL = "claude-haiku-4-5"
+MODEL = "claude-haiku-4-5-20251001"
 
 
 @cl.set_starters

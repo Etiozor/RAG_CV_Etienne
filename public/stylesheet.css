@@ -285,8 +285,8 @@ body.pof-theme [data-step-type="user_message"] .bg-accent {
   border: 1px solid var(--pof-hairline-soft) !important;
   border-radius: 18px 18px 4px 18px !important;
   font-family: var(--pof-font) !important;
-  font-size: 20px !important;
-  line-height: 1.5 !important;
+  font-size: 16px !important;
+  line-height: 1.55 !important;
   color: var(--pof-ink) !important;
 }
 
@@ -299,14 +299,14 @@ body.pof-theme [data-step-type="user_message"] .bg-accent {
 body.pof-theme [data-step-type="assistant_message"] .ai-message,
 body.pof-theme [data-step-type="assistant_message"] .message-content {
   font-family: var(--pof-font) !important;
-  font-size: 20px !important;
-  line-height: 1.6 !important;
+  font-size: 16px !important;
+  line-height: 1.55 !important;
   color: var(--pof-ink) !important;
 }
 
 body.pof-theme [data-step-type="assistant_message"] .message-content > p:first-child {
   font-weight: 500 !important;
-  font-size: 22px !important;
+  font-size: 18px !important;
   line-height: 1.45 !important;
 }
 
