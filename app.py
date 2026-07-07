@@ -31,43 +31,37 @@ async def set_starters():
     """Display starter questions for quick engagement (UI-02)."""
     return [
         cl.Starter(
-            label="Experience professionnelle",
-            message="Quelle est l'experience professionnelle d'Etienne?",
+            label="Portrait des expertises techniques",
+            message="Passons au travers de l'ensemble des expertises techniques d'Étienne et des concepts maîtrisés au sein de chacune de ces expertises.",
         ),
         cl.Starter(
-            label="Competences techniques",
-            message="Quelles sont les competences techniques d'Etienne?",
+            label="Évaluation d'une offre d'emploi",
+            message="Évaluer la compatibilité avec une offre d'emploi — Collez le descriptif de poste ci-dessous, j'évaluerai dans quelles mesures Étienne répond à votre proposition.",
         ),
         cl.Starter(
-            label="Missions recentes",
-            message="Quelles sont les missions recentes d'Etienne?",
+            label="Projets personnels et réalisations",
+            message="Montrez-moi des réalisations concrètes du candidat, que ce soit des projets personnels ou des mandats professionnels. Commençons avec des projets en lien avec l'intelligence artificielle, nous continuerons avec des réalisations autour d'autres sphères d'expertise.",
         ),
         cl.Starter(
-            label="Formation",
-            message="Quelle est la formation d'Etienne?",
+            label="Centres d'intérêt et personnalité",
+            message="Quels sont les centres d'intérêt personnels d'Étienne ? Décris-moi quel genre de professionnel est Étienne. Comment le positionnerais-tu sur le test des 16 personnalités ?",
         ),
         cl.Starter(
-            label="Contact",
-            message="Comment contacter Etienne?",
+            label="Motivations",
+            message="Quelles sont les motivations profondes du candidat dans son métier ? Qu'est-ce qui est important pour Étienne dans son environnement professionnel ?",
         ),
     ]
 
 
 @cl.on_chat_start
 async def on_chat_start():
-    """Initialize chat session with LLM and welcome message (UI-01)."""
+    """Initialize chat session with LLM (UI-01)."""
     llm = ChatAnthropic(
         model=MODEL,
         temperature=0.7,
         max_tokens=1024,
     )
     cl.user_session.set("llm", llm)
-
-    await cl.Message(
-        content="Bonjour! Je suis l'assistant virtuel d'Etienne Lepironnec. "
-        "Posez-moi vos questions sur son parcours professionnel, "
-        "ses competences ou ses experiences."
-    ).send()
 
 
 @cl.on_message
