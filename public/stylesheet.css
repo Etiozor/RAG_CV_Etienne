@@ -151,10 +151,24 @@ body.pof-theme #welcome-screen {
   text-align: center;
 }
 
+/* Mark + wordmark sit side by side in a flex row (matches the original
+   design, Chainlit POF.dc.html lines ~63-72). theme-switcher.js wraps the
+   native .logo <img> and #pof-welcome-heading inside this row; the
+   subtitle stays outside, below the row. */
+body.pof-theme #pof-welcome-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 14px;
+}
+
 body.pof-theme #welcome-screen .logo {
   width: 56px !important;
   height: 56px !important;
-  margin: 0 auto 22px !important;
+  /* No auto-centering margin here anymore — .logo is now a flex item
+     inside #pof-welcome-row, which owns the centering/spacing. */
+  margin: 0 !important;
   display: block;
 }
 
@@ -166,7 +180,9 @@ body.pof-theme #pof-welcome-heading {
   letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
   color: var(--pof-ink) !important;
-  margin: 0 auto 14px !important;
+  /* No bottom margin here — #pof-welcome-row owns the row's own
+     margin-bottom; this is now a flex item alongside .logo. */
+  margin: 0 !important;
   white-space: nowrap;
 }
 
@@ -349,6 +365,23 @@ body.pof-theme [data-step-type="assistant_message"] .flex.items-center.flex-wrap
 
 body.pof-theme [data-step-type="assistant_message"] .flex.items-center.flex-wrap button:hover {
   color: var(--pof-teal) !important;
+}
+
+/* ===========================================
+   PER-MESSAGE AVATAR SIZE
+   Unscoped (applies in both POF and vanilla) since both the four-petal
+   POF avatar and Chainlit's restored vanilla default avatar use the same
+   Radix Avatar structure. Sizing the <img> directly does not work — the
+   parent Avatar.Root span (components/ui/avatar.tsx) clips/constrains it
+   via overflow-hidden + a fixed h-5/w-5 (20px) class from Avatar.tsx.
+   :has() reaches that parent from the stable img[alt^="Avatar for"]
+   selector (confirmed against the installed chainlit 2.11.1 frontend
+   bundle). If that shadcn Avatar/AvatarImage structure ever changes,
+   this selector may need updating.
+   =========================================== */
+span:has(> img[alt^="Avatar for"]) {
+  width: 28px !important;
+  height: 28px !important;
 }
 
 /* ===========================================

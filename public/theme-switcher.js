@@ -30,8 +30,22 @@
   const VANILLA_LOGO_DARK = '/logo?theme=dark';
   const VANILLA_TITLE = 'Assistant';
 
+  // Per-message avatars: MessageAvatar (Avatar.tsx) always returns
+  // config.ui.default_avatar_file_url FIRST if set, regardless of theme,
+  // so vanilla mode needs its own explicit restore. Confirmed the real
+  // fallback in the installed chainlit/server.py's GET /avatars/{id} route:
+  // "default" resolves to config.ui.name, sanitized, globbed against
+  // public/avatars/{name}.* (note the plural subfolder — distinct from our
+  // public/avatar.svg) — since no such file exists, it falls through to
+  // get_favicon(), i.e. Chainlit's true fallback avatar. Every per-message
+  // avatar <img> matches img[alt^="Avatar for"] (confirmed in the frontend
+  // bundle: alt={`Avatar for ${author || 'default'}`}).
+  const POF_AVATAR = '/public/avatar.svg';
+  const VANILLA_AVATAR = '/avatars/default';
+
   const HEADING_ID = 'pof-welcome-heading';
   const SUBTITLE_ID = 'pof-welcome-subtitle';
+  const ROW_ID = 'pof-welcome-row';
   const TOGGLE_ID = 'pof-theme-toggle-btn';
 
   const HEADING_TEXT = 'Etienne Le Pironnec';
@@ -61,12 +75,39 @@
   }
 
   // ===== WELCOME SCREEN TITLE/SUBTITLE INJECTION =====
-  // #welcome-screen natively contains ONLY the logo <img class="logo">,
-  // then MessageComposer, then Starters — there is no title/subtitle in
-  // the real DOM, so we inject stable nodes guarded by id existence
-  // checks so re-renders never duplicate them.
+  // #welcome-screen natively renders {logo}{MessageComposer}{Starters},
+  // with .logo (a plain <img class="logo">) as a DIRECT child — confirmed
+  // in the installed frontend bundle's WelcomeScreen.tsx. There is no
+  // title/subtitle in the real DOM, so we inject them, and per the
+  // original design (Chainlit POF.dc.html) the mark + wordmark sit side
+  // by side in a flex row, with the subtitle below as a separate sibling.
+  //
+  // To match that layout we wrap .logo in a new #pof-welcome-row div and
+  // append the heading into the same row — REPARENTING the existing .logo
+  // node (appendChild moves it, it does not clone/destroy it). The
+  // subtitle stays OUTSIDE the row, as a sibling below it.
+  //
+  // Everything here is guarded by existence checks so repeated reapply()
+  // calls are idempotent (no re-wrapping, no duplicate nodes). When
+  // WelcomeScreen fully unmounts (a message exists) and later remounts
+  // fresh (back to an empty thread), React creates a brand-new unwrapped
+  // .logo and our old #pof-welcome-row/#pof-welcome-heading/subtitle are
+  // removed along with the old subtree — the next reapply() tick (driven
+  // by the MutationObserver) naturally re-wraps the new .logo from
+  // scratch, so no special remount handling is needed here.
 
   function removeInjectedWelcomeText() {
+    const row = document.getElementById(ROW_ID);
+    if (row) {
+      const logo = row.querySelector('.logo');
+      if (logo && row.parentNode) {
+        // Restore .logo to its original position (direct child of
+        // #welcome-screen, where the row currently sits) BEFORE removing
+        // the now-empty wrapper — never orphan/destroy the native node.
+        row.parentNode.insertBefore(logo, row);
+      }
+      row.remove();
+    }
     const heading = document.getElementById(HEADING_ID);
     if (heading) heading.remove();
     const subtitle = document.getElementById(SUBTITLE_ID);
@@ -84,27 +125,44 @@
 
     const logo = welcome.querySelector('.logo');
 
+    let row = document.getElementById(ROW_ID);
+    if (!row && logo) {
+      row = document.createElement('div');
+      row.id = ROW_ID;
+      logo.parentNode.insertBefore(row, logo);
+      row.appendChild(logo); // reparent (move), not clone
+    }
+
     let heading = document.getElementById(HEADING_ID);
     if (!heading) {
       heading = document.createElement('div');
       heading.id = HEADING_ID;
       heading.textContent = HEADING_TEXT;
-      if (logo && logo.parentNode) {
+      if (row) {
+        row.appendChild(heading);
+      } else if (logo && logo.parentNode) {
         logo.parentNode.insertBefore(heading, logo.nextSibling);
       } else {
         welcome.insertBefore(heading, welcome.firstChild);
       }
+    } else if (row && heading.parentNode !== row) {
+      // Idempotency safeguard: if a previous partial run left heading
+      // outside the row, move it back in after the logo.
+      row.appendChild(heading);
     }
 
     if (!document.getElementById(SUBTITLE_ID)) {
       const subtitle = document.createElement('div');
       subtitle.id = SUBTITLE_ID;
       subtitle.textContent = SUBTITLE_TEXT;
-      heading.parentNode.insertBefore(subtitle, heading.nextSibling);
+      // Subtitle is a sibling BELOW the row (only the mark+wordmark are
+      // side-by-side per the design), not inside it.
+      const anchor = row || heading;
+      anchor.parentNode.insertBefore(subtitle, anchor.nextSibling);
     }
   }
 
-  // ===== LOGO SYNC (POF asset vs Chainlit's own default) =====
+  // ===== LOGO / AVATAR SYNC (POF asset vs Chainlit's own default) =====
   // When POF is enabled, swap the welcome logo to match Chainlit's native
   // dark/light state (logo.svg / logo-dark.svg) — uses img.src update only,
   // does not fight Chainlit's own logo_file_url wiring in config.toml.
@@ -112,7 +170,7 @@
   // its own /logo?theme=... route directly (see VANILLA_LOGO_* comment
   // above for why this bypasses our custom logo_file_url).
 
-  function logoUrlMatches(img, desired) {
+  function imgSrcMatches(img, desired) {
     try {
       const current = new URL(img.src, window.location.origin);
       const target = new URL(desired, window.location.origin);
@@ -129,7 +187,21 @@
       : (dark ? VANILLA_LOGO_DARK : VANILLA_LOGO_LIGHT);
 
     document.querySelectorAll('#welcome-screen .logo').forEach((img) => {
-      if (img.tagName === 'IMG' && !logoUrlMatches(img, desired)) {
+      if (img.tagName === 'IMG' && !imgSrcMatches(img, desired)) {
+        img.src = desired;
+      }
+    });
+  }
+
+  // Per-message avatars mount dynamically (one per assistant message, new
+  // ones appear as messages stream in), so this must re-run on every
+  // reapply()/observer tick, not just once — guarded the same way as
+  // syncLogo() (compare against the desired URL before assigning) so it
+  // does not reintroduce a mutation-loop risk.
+  function syncAvatars() {
+    const desired = isPofEnabled() ? POF_AVATAR : VANILLA_AVATAR;
+    document.querySelectorAll('img[alt^="Avatar for"]').forEach((img) => {
+      if (img.tagName === 'IMG' && !imgSrcMatches(img, desired)) {
         img.src = desired;
       }
     });
@@ -157,6 +229,7 @@
     }
     injectWelcomeText();
     syncLogo();
+    syncAvatars();
     syncTitle();
   }
 
@@ -234,6 +307,10 @@
       injectWelcomeText();
       syncLogo();
     }
+    // Runs every tick regardless of the branch above: new per-message
+    // avatar <img> elements can mount at any time as messages stream in,
+    // guarded internally so this is a no-op once already correct.
+    syncAvatars();
     ensureToggleButton();
   }
 
