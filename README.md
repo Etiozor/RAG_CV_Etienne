@@ -23,13 +23,15 @@ An AI assistant that answers recruiter questions about Etienne's professional pr
 ## Usage
 
 Simply ask questions like:
-- "Quelle est l'experience d'Etienne en data engineering?"
-- "What are Etienne's technical skills?"
-- "Quelles sont ses missions recentes?"
+- "Peux-tu me faire un portrait des expertises techniques d'Étienne?"
+- "Voici une offre d'emploi, dans quelle mesure Étienne y correspond-il?"
+- "Quels projets personnels ou mandats professionnels Étienne a-t-il réalisés?"
+- "Quels sont les centres d'intérêt et la personnalité d'Étienne?"
+- "Qu'est-ce qui motive Étienne dans son métier?"
 
 ## Technology Stack
 
-- **LLM:** Claude Sonnet (Anthropic API)
+- **LLM:** Claude Haiku 4.5 (Anthropic API)
 - **Embeddings:** OpenAI text-embedding-3-small
 - **Vector Store:** ChromaDB
 - **UI:** Chainlit
@@ -113,6 +115,8 @@ cv-chatbot/
 ├── chainlit.md      # Welcome screen
 ├── Dockerfile       # Container configuration
 ├── requirements.txt # Python dependencies
+├── public/          # Custom Chainlit theme (stylesheet, theme switcher, logos, avatar)
+├── .chainlit/       # Chainlit config + translations
 ├── chroma_db/       # Pre-indexed vectors
 ├── docs/            # Source documents
 └── tests/           # Unit tests
