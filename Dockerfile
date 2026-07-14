@@ -31,5 +31,7 @@ EXPOSE 7860
 # Production Chainlit command
 # -h: headless mode (no browser open)
 # --host 0.0.0.0: accept external connections
-# --port 7860: HF Spaces default port
-CMD ["chainlit", "run", "app.py", "-h", "--host", "0.0.0.0", "--port", "7860"]
+# --port ${PORT:-7860}: dynamic port binding. Railway injects PORT at runtime
+# (this is a shell-form CMD so $PORT expands); HuggingFace Spaces does not set
+# PORT, so it falls back to 7860 (unchanged HF behavior).
+CMD chainlit run app.py -h --host 0.0.0.0 --port ${PORT:-7860}
