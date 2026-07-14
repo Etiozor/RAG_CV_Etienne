@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --color-bg:#fdf8e8;
+      --color-surface:#f0e6c8;
+      --color-teal:#5b8e7d;
+      --color-orange:#f4a259;
+      --color-red:#bc4b51;
+      --color-yellow:#f4e285;
+      --color-green:#8cb369;
+      --color-ink:#2b2b2b;
+      --color-ink-muted:#8c8270;
+      --hairline:rgba(0,0,0,0.10);
+      --hairline-soft:rgba(0,0,0,0.06);
+      /* Calibri-based stack — Carlito is the metric-compatible open-source clone */
+      --font-oswald:Calibri,'Carlito','Segoe UI',sans-serif;
+      --font-space-mono:Calibri,'Carlito','Segoe UI',sans-serif;
+      --font-cormorant:Calibri,'Carlito','Segoe UI',sans-serif;
+      --font-geist-sans:Calibri,'Carlito','Segoe UI',sans-serif;
+      --radius-sm:3px;
+    }
+    html,body{margin:0;padding:0;background:var(--color-bg);}
+    *{box-sizing:border-box;}
+    ::selection{background:rgba(91,142,125,0.25);}
+  </style>
+</helmet>
+
+<div style="background:var(--color-bg); min-height:100vh; font-family:var(--font-space-mono); color:var(--color-ink);">
+
+  <!-- ============ SCREEN 1 — ACCUEIL ============ -->
+  <div style="max-width:1320px; margin:0 auto;">
+    <div style="background:var(--color-bg); height:760px; position:relative; overflow:hidden;">
+
+      <!-- Top bar -->
+      <div style="position:absolute; top:0; left:0; right:0; height:56px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; z-index:5;">
+        <button style="width:36px; height:36px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-ink-muted); border-radius:var(--radius-sm);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+        </button>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <a href="#" style="font-family:var(--font-space-mono); font-size:13px; letter-spacing:0.05em; color:var(--color-ink); text-decoration:none; text-transform:lowercase;">Lisez-moi</a>
+          <button aria-label="Basculer en mode sombre" style="width:36px; height:36px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-ink-muted); border-radius:var(--radius-sm);" style-hover="color:var(--color-ink);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Centerpiece -->
+      <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 24px;">
+
+        <!-- Mark + wordmark -->
+        <div style="display:flex; align-items:center; gap:22px; margin-bottom:14px;">
+          <!-- Four-petal mark, re-coloured -->
+          <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true" style="flex-shrink:0;">
+            <circle cx="28" cy="14" r="9" fill="var(--color-teal)"></circle>
+            <circle cx="28" cy="42" r="9" fill="var(--color-teal)"></circle>
+            <circle cx="14" cy="28" r="9" fill="var(--color-teal)"></circle>
+            <circle cx="42" cy="28" r="9" fill="var(--color-teal)"></circle>
+            <circle cx="28" cy="28" r="6" fill="var(--color-bg)"></circle>
+          </svg>
+          <div style="font-family:var(--font-oswald); font-weight:700; font-size:52px; line-height:1; letter-spacing:0.04em; color:var(--color-ink); text-transform:uppercase; white-space:nowrap;">Etienne Le Pironnec</div>
+        </div>
+        <div style="font-family:var(--font-space-mono); font-size:11px; letter-spacing:0.20em; text-transform:uppercase; color:var(--color-ink-muted); margin-bottom:44px;">Agent conversationnel — RAG ChainLit</div>
+
+        <!-- Composer -->
+        <div style="width:100%; max-width:760px; background:var(--color-surface); border:1px solid var(--hairline); border-radius:14px; padding:18px 20px 14px;">
+          <div style="font-family:var(--font-geist-sans); font-size:15px; color:var(--color-ink-muted); line-height:1.4; min-height:48px;">Posez votre question à Étienne…</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:14px;">
+            <button style="width:32px; height:32px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-ink-muted);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+            </button>
+            <button style="width:36px; height:36px; border:none; background:var(--color-orange); cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-ink); border-radius:999px;" style-hover="background:#4a786a;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Starter pills -->
+        <div style="width:100%; max-width:760px; display:flex; flex-wrap:wrap; gap:10px 12px; justify-content:center; margin-top:28px;">
+          <button style="font-family:var(--font-space-mono); font-size:13px; color:var(--color-bg); background:var(--color-teal); border:1px solid transparent; border-radius:999px; padding:10px 18px; cursor:pointer; letter-spacing:0.01em;" style-hover="background:#4a786a;">Portrait des expertises techniques</button>
+          <button style="font-family:var(--font-space-mono); font-size:13px; color:var(--color-bg); background:var(--color-teal); border:1px solid transparent; border-radius:999px; padding:10px 18px; cursor:pointer; letter-spacing:0.01em;" style-hover="background:#4a786a;">Évaluation d'une offre d'emploi</button>
+          <button style="font-family:var(--font-space-mono); font-size:13px; color:var(--color-bg); background:var(--color-teal); border:1px solid transparent; border-radius:999px; padding:10px 18px; cursor:pointer; letter-spacing:0.01em;" style-hover="background:#4a786a;">Projets personnels et réalisations</button>
+          <button style="font-family:var(--font-space-mono); font-size:13px; color:var(--color-bg); background:var(--color-teal); border:1px solid transparent; border-radius:999px; padding:10px 18px; cursor:pointer; letter-spacing:0.01em;" style-hover="background:#4a786a;">Centres d'intérêt et personnalité</button>
+          <button style="font-family:var(--font-space-mono); font-size:13px; color:var(--color-bg); background:var(--color-teal); border:1px solid transparent; border-radius:999px; padding:10px 18px; cursor:pointer; letter-spacing:0.01em;" style-hover="background:#4a786a;">Motivations</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- divider between screens -->
+  <div style="max-width:1320px; margin:0 auto; height:1px; background:var(--hairline);"></div>
+
+  <!-- ============ SCREEN 2 — CONVERSATION ============ -->
+  <div style="max-width:1320px; margin:0 auto;">
+    <div style="background:var(--color-bg); height:760px; position:relative; overflow:hidden; display:flex; flex-direction:column;">
+
+      <!-- Top bar -->
+      <div style="height:56px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
+        <button style="width:36px; height:36px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-ink-muted); border-radius:var(--radius-sm);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+        </button>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <a href="#" style="font-family:var(--font-space-mono); font-size:13px; letter-spacing:0.05em; color:var(--color-ink); text-decoration:none; text-transform:lowercase;">Lisez-moi</a>
+          <button aria-label="Basculer en mode sombre" style="width:36px; height:36px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-ink-muted); border-radius:var(--radius-sm);" style-hover="color:var(--color-ink);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Conversation thread -->
+      <div style="flex:1; overflow-y:auto; padding:24px 24px 8px;">
+        <div style="max-width:880px; margin:0 auto; display:flex; flex-direction:column; gap:36px;">
+
+          <!-- User message (right-aligned) -->
+          <div style="display:flex; justify-content:flex-end;">
+            <div style="max-width:580px; background:var(--color-surface); border:1px solid var(--hairline-soft); border-radius:18px 18px 4px 18px; padding:16px 22px; font-family:var(--font-cormorant); font-size:20px; line-height:1.5; color:var(--color-ink);">
+              Quelles sont les motivations profondes du candidat dans son métier&nbsp;?
+            </div>
+          </div>
+
+          <!-- Assistant message (left-aligned) -->
+          <div style="display:flex; gap:18px; align-items:flex-start;">
+            <!-- Mark -->
+            <svg width="28" height="28" viewBox="0 0 56 56" aria-hidden="true" style="flex-shrink:0; margin-top:6px;">
+              <circle cx="28" cy="14" r="9" fill="var(--color-teal)"></circle>
+              <circle cx="28" cy="42" r="9" fill="var(--color-teal)"></circle>
+              <circle cx="14" cy="28" r="9" fill="var(--color-teal)"></circle>
+              <circle cx="42" cy="28" r="9" fill="var(--color-teal)"></circle>
+              <circle cx="28" cy="28" r="6" fill="var(--color-bg)"></circle>
+            </svg>
+
+            <div style="flex:1; padding-top:2px;">
+              <!-- Eyebrow attribution -->
+              <div style="font-family:var(--font-space-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--color-ink-muted); margin-bottom:10px;">Assistant · Réponse</div>
+
+              <p style="font-family:var(--font-cormorant); font-weight:500; font-size:22px; line-height:1.45; color:var(--color-ink); margin:0 0 18px;">Je n'ai pas cette information dans les documents disponibles.</p>
+
+              <p style="font-family:var(--font-cormorant); font-size:20px; line-height:1.6; color:var(--color-ink); margin:0 0 16px;">Les documents fournis détaillent les compétences techniques d'Étienne, son parcours scolaire, ses expériences professionnelles et ses passions personnelles, mais ils ne contiennent pas d'informations explicites sur ses motivations profondes dans son métier.</p>
+
+              <p style="font-family:var(--font-cormorant); font-size:20px; line-height:1.6; color:var(--color-ink); margin:0 0 22px;">Pour obtenir cette information, il serait préférable de poser directement la question à Étienne lors d'un entretien.</p>
+
+              <!-- Actions row -->
+              <div style="display:flex; align-items:center; gap:14px; padding-top:14px; border-top:1px solid var(--hairline-soft);">
+                <button style="background:transparent; border:none; cursor:pointer; color:var(--color-ink-muted); display:flex; align-items:center; gap:8px; font-family:var(--font-space-mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; padding:0;" style-hover="color:var(--color-teal);">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  Copier
+                </button>
+                <span style="width:1px; height:14px; background:var(--hairline);"></span>
+                <button style="background:transparent; border:none; cursor:pointer; color:var(--color-ink-muted); display:flex; align-items:center; gap:8px; font-family:var(--font-space-mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; padding:0;" style-hover="color:var(--color-teal);">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                  Régénérer
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Composer pinned bottom -->
+      <div style="padding:0 24px 16px; flex-shrink:0;">
+        <div style="max-width:880px; margin:0 auto;">
+          <div style="background:var(--color-surface); border:1px solid var(--hairline); border-radius:14px; padding:14px 18px 12px;">
+            <div style="font-family:var(--font-cormorant); font-size:18px; color:var(--color-ink-muted); line-height:1.4; min-height:32px;">Posez votre question à Étienne…</div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
+              <button style="width:30px; height:30px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-ink-muted);">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+              </button>
+              <button style="width:34px; height:34px; border:none; background:var(--color-orange); cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-ink); border-radius:999px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+              </button>
+            </div>
+          </div>
+          <div style="text-align:center; font-family:var(--font-space-mono); font-size:11px; letter-spacing:0.05em; color:var(--color-ink-muted); margin-top:10px;">Les modèles de langage peuvent se tromper — vérifiez les informations importantes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+</body>
+</html>

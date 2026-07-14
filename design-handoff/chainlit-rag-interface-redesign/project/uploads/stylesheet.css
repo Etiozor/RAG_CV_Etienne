@@ -1,0 +1,405 @@
+/* ===========================================
+   POF Gallery Style - Chainlit Custom Theme
+   Étienne Le Pironnec - CV Chatbot
+
+   IMPORTANT: All styles are scoped to body.pof-theme
+   When this class is removed, Chainlit vanilla theme applies
+   =========================================== */
+
+/* --- POF Theme Variables (only when active) --- */
+body.pof-theme {
+  --color-bg: #fdf8e8;
+  --color-surface: #f0e6c8;
+  --color-teal: #5b8e7d;
+  --color-teal-hover: #4a786a;
+  --color-orange: #f4a259;
+  --color-red: #bc4b51;
+  --color-yellow: #f4e285;
+  --color-green: #8cb369;
+  --color-ink: #2b2b2b;
+  --color-ink-muted: #8c8270;
+  --hairline: rgba(0, 0, 0, 0.10);
+  --font-oswald: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-space-mono: 'Space Mono', ui-monospace, Menlo, monospace;
+  --font-cormorant: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+}
+
+/* Dark mode POF variables */
+body.pof-theme[data-theme="dark"] {
+  --color-bg: #1f1d19;
+  --color-surface: #2a2722;
+  --color-ink: #e8e4d9;
+  --color-ink-muted: #8c8270;
+  --hairline: rgba(255, 255, 255, 0.10);
+}
+
+/* --- Load Google Fonts (always, for when POF is active) --- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Oswald:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* ===========================================
+   POF THEME STYLES (only when body.pof-theme)
+   =========================================== */
+
+/* --- Global Background --- */
+body.pof-theme {
+  background: var(--color-bg) !important;
+}
+
+/* --- Override Chainlit CSS Variables --- */
+body.pof-theme {
+  --background: 48 73% 95%;
+  --foreground: 0 0% 17%;
+  --card: 43 53% 86%;
+  --card-foreground: 0 0% 17%;
+  --popover: 48 73% 95%;
+  --popover-foreground: 0 0% 17%;
+  --primary: 158 22% 46%;
+  --primary-foreground: 48 73% 95%;
+  --secondary: 43 53% 86%;
+  --secondary-foreground: 0 0% 17%;
+  --muted: 43 40% 84%;
+  --muted-foreground: 40 11% 49%;
+  --accent: 158 22% 46%;
+  --accent-foreground: 48 73% 95%;
+  --destructive: 355 52% 52%;
+  --border: 0 0% 0% / 0.10;
+  --input: 43 53% 86%;
+  --ring: 158 22% 46%;
+}
+
+body.pof-theme[data-theme="dark"] {
+  --background: 40 15% 12%;
+  --foreground: 43 40% 90%;
+  --card: 40 12% 18%;
+  --card-foreground: 43 40% 90%;
+  --popover: 40 15% 12%;
+  --popover-foreground: 43 40% 90%;
+  --primary: 158 22% 46%;
+  --primary-foreground: 40 15% 12%;
+  --secondary: 40 12% 22%;
+  --secondary-foreground: 43 40% 90%;
+  --muted: 40 10% 25%;
+  --muted-foreground: 40 15% 60%;
+  --accent: 158 22% 46%;
+  --accent-foreground: 40 15% 12%;
+  --border: 43 40% 90% / 0.10;
+  --input: 40 12% 22%;
+}
+
+/* --- Typography --- */
+body.pof-theme {
+  font-family: var(--font-space-mono) !important;
+}
+
+/* --- Welcome Screen Title --- */
+body.pof-theme [class*="WelcomeScreen"] h1,
+body.pof-theme [class*="welcome"] h1 {
+  font-family: var(--font-oswald) !important;
+  font-weight: 700 !important;
+  font-size: 42px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  color: var(--color-ink) !important;
+}
+
+body.pof-theme [class*="WelcomeScreen"] p,
+body.pof-theme [class*="welcome"] p {
+  font-family: var(--font-space-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.20em !important;
+  text-transform: uppercase !important;
+  color: var(--color-ink-muted) !important;
+}
+
+/* --- Starter Buttons (Pills) --- */
+body.pof-theme button[class*="starter"],
+body.pof-theme [class*="Starter"] button,
+body.pof-theme [class*="starters"] button {
+  font-family: var(--font-space-mono) !important;
+  font-size: 13px !important;
+  color: var(--color-bg) !important;
+  background: var(--color-teal) !important;
+  border: 1px solid transparent !important;
+  border-radius: 999px !important;
+  padding: 10px 18px !important;
+  letter-spacing: 0.01em !important;
+  transition: background 0.2s ease !important;
+}
+
+body.pof-theme button[class*="starter"]:hover,
+body.pof-theme [class*="Starter"] button:hover,
+body.pof-theme [class*="starters"] button:hover {
+  background: var(--color-teal-hover) !important;
+}
+
+/* --- Message Input / Composer --- */
+body.pof-theme [class*="composer"],
+body.pof-theme [class*="Composer"],
+body.pof-theme textarea[class*="input"],
+body.pof-theme [class*="MessageComposer"] {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--hairline) !important;
+  border-radius: 14px !important;
+  font-family: var(--font-cormorant) !important;
+  font-style: italic !important;
+  font-size: 18px !important;
+}
+
+body.pof-theme textarea::placeholder {
+  font-family: var(--font-cormorant) !important;
+  font-style: italic !important;
+  color: var(--color-ink-muted) !important;
+}
+
+/* Send button */
+body.pof-theme button[class*="send"],
+body.pof-theme [class*="SendButton"],
+body.pof-theme button[type="submit"] {
+  background: var(--color-teal) !important;
+  border-radius: 999px !important;
+  color: var(--color-bg) !important;
+}
+
+body.pof-theme button[class*="send"]:hover,
+body.pof-theme [class*="SendButton"]:hover,
+body.pof-theme button[type="submit"]:hover {
+  background: var(--color-teal-hover) !important;
+}
+
+/* --- User Messages --- */
+body.pof-theme [class*="user-message"],
+body.pof-theme [class*="UserMessage"],
+body.pof-theme [data-role="user"] {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--hairline) !important;
+  border-radius: 18px 18px 4px 18px !important;
+  font-family: var(--font-cormorant) !important;
+  font-style: italic !important;
+  font-size: 20px !important;
+  line-height: 1.5 !important;
+  color: var(--color-ink) !important;
+}
+
+/* --- Assistant Messages --- */
+body.pof-theme [class*="assistant-message"],
+body.pof-theme [class*="AssistantMessage"],
+body.pof-theme [data-role="assistant"] {
+  font-family: var(--font-cormorant) !important;
+  font-style: italic !important;
+  font-size: 20px !important;
+  line-height: 1.6 !important;
+  color: var(--color-ink) !important;
+}
+
+body.pof-theme [data-role="assistant"] p:first-of-type {
+  font-weight: 500 !important;
+  font-size: 22px !important;
+  line-height: 1.45 !important;
+}
+
+/* --- Message Actions --- */
+body.pof-theme [class*="message-actions"] button,
+body.pof-theme [class*="MessageActions"] button {
+  font-family: var(--font-space-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--color-ink-muted) !important;
+}
+
+body.pof-theme [class*="message-actions"] button:hover,
+body.pof-theme [class*="MessageActions"] button:hover {
+  color: var(--color-teal) !important;
+}
+
+/* --- Header --- */
+body.pof-theme header,
+body.pof-theme [class*="Header"],
+body.pof-theme [class*="header"] {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+body.pof-theme header a,
+body.pof-theme [class*="Header"] a {
+  font-family: var(--font-space-mono) !important;
+  font-size: 13px !important;
+  letter-spacing: 0.05em !important;
+  color: var(--color-ink) !important;
+  text-decoration: none !important;
+  text-transform: lowercase !important;
+}
+
+/* --- Sidebar --- */
+body.pof-theme [class*="sidebar"],
+body.pof-theme [class*="Sidebar"] {
+  background: var(--color-surface) !important;
+  border-right: 1px solid var(--hairline) !important;
+}
+
+/* --- Buttons --- */
+body.pof-theme button {
+  font-family: var(--font-space-mono) !important;
+}
+
+body.pof-theme button[class*="icon"],
+body.pof-theme [class*="IconButton"] {
+  color: var(--color-ink-muted) !important;
+}
+
+body.pof-theme button[class*="icon"]:hover,
+body.pof-theme [class*="IconButton"]:hover {
+  color: var(--color-teal) !important;
+}
+
+/* --- Footer / Disclaimer --- */
+body.pof-theme [class*="disclaimer"],
+body.pof-theme [class*="Disclaimer"],
+body.pof-theme footer p {
+  font-family: var(--font-space-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.05em !important;
+  color: var(--color-ink-muted) !important;
+  text-align: center !important;
+}
+
+/* --- Cards / Panels --- */
+body.pof-theme [class*="card"],
+body.pof-theme [class*="Card"],
+body.pof-theme [class*="panel"],
+body.pof-theme [class*="Panel"] {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--hairline) !important;
+  border-radius: 14px !important;
+}
+
+/* --- Links --- */
+body.pof-theme a {
+  color: var(--color-teal) !important;
+}
+
+body.pof-theme a:hover {
+  color: var(--color-teal-hover) !important;
+}
+
+/* --- Selection --- */
+body.pof-theme ::selection {
+  background: rgba(91, 142, 125, 0.25) !important;
+}
+
+/* --- Scrollbar --- */
+body.pof-theme ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body.pof-theme ::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+body.pof-theme ::-webkit-scrollbar-thumb {
+  background: var(--color-ink-muted);
+  border-radius: 4px;
+}
+
+body.pof-theme ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-teal);
+}
+
+/* --- Code Blocks --- */
+body.pof-theme pre,
+body.pof-theme code {
+  font-family: var(--font-space-mono) !important;
+  background: var(--color-surface) !important;
+  border: 1px solid var(--hairline) !important;
+  border-radius: 3px !important;
+}
+
+/* --- Markdown --- */
+body.pof-theme [class*="markdown"] h1,
+body.pof-theme [class*="markdown"] h2,
+body.pof-theme [class*="markdown"] h3 {
+  font-family: var(--font-oswald) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  color: var(--color-ink) !important;
+}
+
+body.pof-theme [class*="markdown"] p,
+body.pof-theme [class*="markdown"] li {
+  font-family: var(--font-cormorant) !important;
+  font-style: italic !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+}
+
+/* --- Primary buttons --- */
+body.pof-theme [class*="primary"],
+body.pof-theme .bg-primary {
+  background-color: var(--color-teal) !important;
+}
+
+body.pof-theme [class*="primary"]:hover {
+  background-color: var(--color-teal-hover) !important;
+}
+
+/* --- Badges --- */
+body.pof-theme [class*="badge"],
+body.pof-theme [class*="Badge"],
+body.pof-theme [class*="tag"],
+body.pof-theme [class*="Tag"] {
+  font-family: var(--font-space-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  background: var(--color-teal) !important;
+  color: var(--color-bg) !important;
+  border-radius: 999px !important;
+}
+
+/* --- Custom Logo (hide default when POF, show custom) --- */
+body.pof-theme [class*="logo"] img,
+body.pof-theme [class*="Logo"] img {
+  content: url('/public/logo.svg') !important;
+}
+
+/* ===========================================
+   THEME TOGGLE BUTTON (always visible)
+   =========================================== */
+
+#theme-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Button in POF theme */
+body.pof-theme #theme-toggle-btn {
+  background: var(--color-surface) !important;
+  color: var(--color-ink) !important;
+  border: 1px solid var(--hairline) !important;
+}
+
+/* Button in vanilla Chainlit (no .pof-theme) */
+body:not(.pof-theme) #theme-toggle-btn {
+  background: hsl(var(--card, 0 0% 100%));
+  color: hsl(var(--foreground, 0 0% 0%));
+  border: 1px solid hsl(var(--border, 0 0% 90%));
+}
+
+#theme-toggle-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
