@@ -92,6 +92,29 @@ chainlit run app.py
    - `OPENAI_API_KEY`
 5. Push to deploy
 
+### Deploy to Railway
+
+Railway builds the same Dockerfile as HuggingFace Spaces and binds the container to the `$PORT` it injects automatically (no port configuration needed by you). `chroma_db/` (pre-indexed, read-only) is shipped inside the image, so **no Railway Volume is required**. `railway.json` pins the Docker builder so Railway does not fall back to auto-detection.
+
+**Required Variables** (set in the Railway project, same keys as HF Spaces):
+- `ANTHROPIC_API_KEY`
+- `OPENAI_API_KEY`
+
+**Option A — GitHub deploy (dashboard):**
+1. In your Railway project: **New/Existing Project → Add service → Deploy from GitHub repo**
+2. Select `Etiozor/RAG_CV_Etienne` — Railway auto-detects the Dockerfile
+3. Add the two Variables above in the service's **Variables** tab
+4. Click **Generate Domain** to get a public URL
+
+**Option B — CLI deploy (from the repo root):**
+```bash
+railway login
+railway link          # link to the already-created Railway project
+railway up
+railway variables --set ANTHROPIC_API_KEY="your-key" --set OPENAI_API_KEY="your-key"
+railway domain        # generate a public URL
+```
+
 ### Local Docker
 
 ```bash

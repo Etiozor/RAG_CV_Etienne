@@ -1,9 +1,6 @@
 # Environment variables (contains API keys)
 .env
 
-# ChromaDB vector store (local development only - included in HF Spaces deployment)
-chroma_db/
-
 # Python
 __pycache__/
 *.pyc
