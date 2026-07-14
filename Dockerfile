@@ -21,6 +21,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Application code
 COPY --chown=user app.py rag.py indexer.py chainlit.md ./
 COPY --chown=user .chainlit ./.chainlit
+COPY --chown=user public ./public
 
 # Pre-indexed vector store (must be included for RAG)
 COPY --chown=user chroma_db ./chroma_db
