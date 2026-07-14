@@ -79,11 +79,13 @@ None
 |---|-------------|------|--------|-----------|
 | 260704-pfu | Implement POF Gallery Chainlit custom theme with vanilla/custom toggle | 2026-07-04 | fe75c07 | [260704-pfu-implement-pof-gallery-chainlit-custom-th](./quick/260704-pfu-implement-pof-gallery-chainlit-custom-th/) |
 | 260707-pf4 | Nettoyage repo + mise à jour README | 2026-07-07 | 46b7e5d | [260707-pf4-nettoyage-repo-readme](./quick/260707-pf4-nettoyage-repo-readme/) |
+| 260714-bje | Adapter le repo pour un déploiement additif sur Railway (Dockerfile $PORT dynamique, chroma_db tracké, railway.json, doc README) | 2026-07-14 | 57c82d1 | [260714-bje-deployer-le-rag-cv-chatbot-sur-railway-n](./quick/260714-bje-deployer-le-rag-cv-chatbot-sur-railway-n/) |
 
 ## Recent Activity
 
 | Date | Action |
 |------|--------|
+| 2026-07-14 | Quick task 260714-bje: repo adapté pour Railway (CMD shell-form avec ${PORT:-7860}, chroma_db tracké dans git, railway.json ajouté, README documente les étapes manuelles de déploiement) — HF Spaces inchangé |
 | 2026-07-07 | Quick task 260707-pf4: untracked broken RAG-CV gitlink + generated graphify-out/, committed pending app.py starter changes, corrected README (model, structure, usage examples) |
 | 2026-07-07 | Quick task 260704-pfu approved (final): POF Gallery custom theme + Vanilla toggle rebuilt against real Chainlit 2.11.1 selectors, human-verified in browser across 4 refinement rounds |
 | 2026-06-11 | Phase 4 complete: Deployed to HuggingFace Spaces |
